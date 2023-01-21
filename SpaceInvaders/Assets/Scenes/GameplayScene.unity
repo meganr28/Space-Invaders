@@ -411,6 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bb5a992cc09504598a3d729d70eed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missile: {fileID: 8028340166670770814, guid: 18b26609f3f8df741b853fdbb49660c2, type: 3}
   playerSpeed: 0
   minX: 0
   maxX: 0
