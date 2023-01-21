@@ -36,7 +36,7 @@ public class Missile : MonoBehaviour
         if (collider.CompareTag("Invader"))
         {
 
-            Invader invader = collider.gameObject.GetComponent<Invader>();
+            SmallInvader invader = collider.gameObject.GetComponent<SmallInvader>();
             // let the other object handle its own death throes 
             invader.Die();
             // Destroy the Bullet which collided with the Asteroid 
