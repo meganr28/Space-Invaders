@@ -29,4 +29,24 @@ public class Missile : MonoBehaviour
     {
 
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Collider collider = collision.collider;
+        if (collider.CompareTag("Invader"))
+        {
+
+            Invader invader = collider.gameObject.GetComponent<Invader>();
+            // let the other object handle its own death throes 
+            invader.Die();
+            // Destroy the Bullet which collided with the Asteroid 
+            Destroy(gameObject);
+        }
+        else
+        {
+            // if we collided with something else, print to console 
+            // what the other thing was 
+            Debug.Log("Collided with " + collider.tag);
+        }
+    }
 }
