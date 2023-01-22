@@ -1432,7 +1432,13 @@ MonoBehaviour:
   smallInvaderPrefab: {fileID: 3828475409443784856, guid: b869e1c38313f1a48af5ca967dc24242, type: 3}
   mediumInvaderPrefab: {fileID: 5964765502761833608, guid: 0dfc920df70170d499da7248c1925b25, type: 3}
   largeInvaderPrefab: {fileID: 263857794797181069, guid: c13f282546ca2d24cb37a3b0861124b4, type: 3}
+  missilePrefab: {fileID: 0}
   center: {x: 0, y: 0, z: 0}
+  invaderSpeed: 0
+  minX: 0
+  maxX: 0
+  timer: 0
+  spawnPeriod: 0
 --- !u!1 &1341031099
 GameObject:
   m_ObjectHideFlags: 0

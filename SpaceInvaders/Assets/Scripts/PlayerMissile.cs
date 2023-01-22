@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missile : MonoBehaviour
+public class PlayerMissile : MonoBehaviour
 {
     public Vector3 thrust;
     public Quaternion direction;
@@ -33,24 +33,12 @@ public class Missile : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         Collider collider = collision.collider;
-        if (collider.CompareTag("SmallInvader"))
+        if (collider.CompareTag("Invader"))
         {
-            SmallInvader invader = collider.gameObject.GetComponent<SmallInvader>();
+            Invader invader = collider.gameObject.GetComponent<Invader>();
             // let the other object handle its own death throes 
             invader.Die();
             // Destroy the Bullet which collided with the Asteroid 
-            Destroy(gameObject);
-        }
-        else if (collider.CompareTag("MediumInvader"))
-        {
-            MediumInvader invader = collider.gameObject.GetComponent<MediumInvader>();
-            invader.Die();
-            Destroy(gameObject);
-        }
-        else if (collider.CompareTag("LargeInvader"))
-        {
-            LargeInvader invader = collider.gameObject.GetComponent<LargeInvader>(); 
-            invader.Die();
             Destroy(gameObject);
         }
         else

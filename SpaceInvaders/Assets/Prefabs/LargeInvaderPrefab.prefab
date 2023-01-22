@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 263857794797181059}
   - component: {fileID: 263857794797181068}
   - component: {fileID: 263857794797181056}
-  - component: {fileID: 263857794797181063}
+  - component: {fileID: 2479980833451450651}
   m_Layer: 0
   m_Name: LargeInvaderPrefab
-  m_TagString: LargeInvader
+  m_TagString: Invader
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &263857794797181063
+--- !u!114 &2479980833451450651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 263857794797181069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 087b1ece6cdbc8142b99f09e5c1ed8f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e4ef9fab98e8bc4188ab4c391ac06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointValue: 0
+  invaderType: 0

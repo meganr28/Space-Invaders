@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 5964765502761833610}
   - component: {fileID: 5964765502761833609}
   - component: {fileID: 5964765502761833613}
-  - component: {fileID: 5964765502761833614}
+  - component: {fileID: 3943670913202913775}
   m_Layer: 0
   m_Name: MediumInvaderPrefab
-  m_TagString: MediumInvader
+  m_TagString: Invader
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &5964765502761833614
+--- !u!114 &3943670913202913775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5964765502761833608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a4865af5a1a57c4fa4aad425ade1bba, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e4ef9fab98e8bc4188ab4c391ac06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointValue: 0
+  invaderType: 1

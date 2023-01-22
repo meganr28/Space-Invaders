@@ -44,10 +44,15 @@ public class PlayerShip : MonoBehaviour
             // instantiate the Missile
             GameObject obj = Instantiate(missile, spawnPos, Quaternion.identity) as GameObject;
             // get the Missile Script Component of the new Bullet instance 
-            Missile m = obj.GetComponent<Missile>();
+            PlayerMissile m = obj.GetComponent<PlayerMissile>();
             // set the direction the Bullet will travel in 
             Quaternion rot = Quaternion.Euler(new Vector3(0, 0, 0));
             m.direction = rot;
         }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
