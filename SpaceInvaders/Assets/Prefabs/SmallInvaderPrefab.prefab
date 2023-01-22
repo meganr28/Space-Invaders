@@ -127,4 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4ef9fab98e8bc4188ab4c391ac06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missile: {fileID: 6140054660516247536, guid: a57d31fde325c9d49b531a8d993f5072, type: 3}
   invaderType: 2

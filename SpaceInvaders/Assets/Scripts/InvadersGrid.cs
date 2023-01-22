@@ -32,31 +32,31 @@ public class InvadersGrid : MonoBehaviour
         int extentX = (this.columns - 1) / 2;
         int extentZ = (this.rows - 1) / 2;
 
-        // Instantiate the appropriate invader type at each position in the grid
-        for (int i = -extentZ; i <= extentZ; i++)
-        {
-            for (int j = -extentX; j <= extentX; j++)
-            {
-                int row = i + extentZ;
-                Vector3 invaderPosition = center + new Vector3(j, 0, i) * this.spacing;
+        //// Instantiate the appropriate invader type at each position in the grid
+        //for (int i = -extentZ; i <= extentZ; i++)
+        //{
+        //    for (int j = -extentX; j <= extentX; j++)
+        //    {
+        //        int row = i + extentZ;
+        //        Vector3 invaderPosition = center + new Vector3(j, 0, i) * this.spacing;
 
-                // Bottom two rows - large invader
-                if (row < 2)
-                {
-                    Instantiate(largeInvaderPrefab, invaderPosition, Quaternion.identity, this.transform);
-                }
-                // Middle two rows - medium invader
-                else if (row < 4)
-                {
-                    Instantiate(mediumInvaderPrefab, invaderPosition, Quaternion.identity, this.transform);
-                }
-                // Top row - small invader
-                else
-                {
-                    Instantiate(smallInvaderPrefab, invaderPosition, Quaternion.identity, this.transform);
-                }
-            }
-        }
+        //        // Bottom two rows - large invader
+        //        if (row < 2)
+        //        {
+        //            Instantiate(largeInvaderPrefab, invaderPosition, Quaternion.identity, this.transform);
+        //        }
+        //        // Middle two rows - medium invader
+        //        else if (row < 4)
+        //        {
+        //            Instantiate(mediumInvaderPrefab, invaderPosition, Quaternion.identity, this.transform);
+        //        }
+        //        // Top row - small invader
+        //        else
+        //        {
+        //            Instantiate(smallInvaderPrefab, invaderPosition, Quaternion.identity, this.transform);
+        //        }
+        //    }
+        //}
     }
 
     // Start is called before the first frame update

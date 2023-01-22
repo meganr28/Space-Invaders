@@ -16,7 +16,7 @@ public class Invader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        FireMissile();
     }
 
     public void Die()
@@ -39,7 +39,7 @@ public class Invader : MonoBehaviour
             Debug.Log("Enemy Missile fired!");
 
             Vector3 spawnPos = gameObject.transform.position;
-            spawnPos.z -= 0.5f; // add slight offset so that bullet spawns at front of player ship
+            spawnPos.z -= 0.75f; // add slight offset so that bullet spawns at front of player ship
 
             // instantiate the Missile
             GameObject obj = Instantiate(missile, spawnPos, Quaternion.identity) as GameObject;

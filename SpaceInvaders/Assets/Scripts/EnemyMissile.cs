@@ -39,6 +39,10 @@ public class EnemyMissile : MonoBehaviour
             player.Die();
             Destroy(gameObject);
         }
+        else if (collider.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }    
         else
         {
             // if we collided with something else, print to console 
