@@ -38,7 +38,18 @@ public class PlayerMissile : MonoBehaviour
             Invader invader = collider.gameObject.GetComponent<Invader>();
             // let the other object handle its own death throes 
             invader.Die();
-            // Destroy the Bullet which collided with the Asteroid 
+            // Increment the number of invaders killed
+            Global.invadersRemaining--;
+            Debug.Log("Invaders remaining: " + Global.invadersRemaining);
+            // Destroy the Missile that collided with the Invader 
+            Destroy(gameObject);
+        }
+        else if (collider.CompareTag("MysteryShip"))
+        {
+            MysteryShip ship = collider.gameObject.GetComponent<MysteryShip>();
+            // let the other object handle its own death throes 
+            ship.Die();
+            // Destroy the Missile that collided with the MysteryShip 
             Destroy(gameObject);
         }
         else

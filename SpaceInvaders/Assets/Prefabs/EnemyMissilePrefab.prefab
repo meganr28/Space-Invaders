@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6140054660516247543}
   - component: {fileID: 6140054660516246539}
   - component: {fileID: 6140054660516246538}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyMissilePrefab
   m_TagString: EnemyMissile
   m_Icon: {fileID: 0}

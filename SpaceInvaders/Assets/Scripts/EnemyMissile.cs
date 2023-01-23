@@ -36,12 +36,40 @@ public class EnemyMissile : MonoBehaviour
         if (collider.CompareTag("PlayerShip"))
         {
             PlayerShip player = collider.gameObject.GetComponent<PlayerShip>();
-            player.Die();
+
+            // Update lives counter
+            GameObject obj = GameObject.Find("GlobalObject");
+            Global g = obj.GetComponent<Global>();
+
+            // Either die or respawn player
+            if (g.lives > 0)
+            {
+                g.lives--;
+                if (g.lives == 0)
+                {
+                    // Display GameOver and then reload scene
+                    g.GameOver();
+                    //player.Die();
+                }
+                else
+                {
+                    player.Respawn();
+                }
+            }
+
             Destroy(gameObject);
+            if (InvadersGrid.numMissilesFired > 0)
+            {
+                InvadersGrid.numMissilesFired--;
+            }
         }
         else if (collider.CompareTag("Wall"))
         {
             Destroy(gameObject);
+            if (InvadersGrid.numMissilesFired > 0)
+            {
+                InvadersGrid.numMissilesFired--;
+            }
         }    
         else
         {

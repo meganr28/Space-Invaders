@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5964765502761833609}
   - component: {fileID: 5964765502761833613}
   - component: {fileID: 3943670913202913775}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MediumInvaderPrefab
   m_TagString: Invader
   m_Icon: {fileID: 0}

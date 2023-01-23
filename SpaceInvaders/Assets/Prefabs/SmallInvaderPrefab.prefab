@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3828475409443784863}
   - component: {fileID: 3828475409443784835}
   - component: {fileID: -6561049346255099429}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmallInvaderPrefab
   m_TagString: Invader
   m_Icon: {fileID: 0}

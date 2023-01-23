@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour
 {
     public GameObject missile;
+    //public Vector3 respawnPosition;
     public float playerSpeed;
     public float minX, maxX;
 
     // Start is called before the first frame update
     void Start()
     {
+        //respawnPosition = new Vector3(-9.0f, 0.0f, -7.5f);
         playerSpeed = 0.1f;
         minX = -9.5f;
         maxX = 9.5f;
@@ -54,5 +56,10 @@ public class PlayerShip : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
+    }
+
+    public void Respawn()
+    {
+        gameObject.transform.position = Global.respawnPosition;
     }
 }
