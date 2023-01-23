@@ -52,6 +52,15 @@ public class PlayerMissile : MonoBehaviour
             // Destroy the Missile that collided with the MysteryShip 
             Destroy(gameObject);
         }
+        else if (collider.CompareTag("ShieldPiece"))
+        {
+            ShieldPiece shieldPiece = collider.gameObject.GetComponent<ShieldPiece>();
+            // let the other object handle its own death throes 
+            shieldPiece.Die();
+            // Destroy the Missile that collided with the ShieldPiece 
+            Destroy(gameObject);
+
+        }
         else
         {
             // if we collided with something else, print to console 
