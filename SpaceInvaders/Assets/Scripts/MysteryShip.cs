@@ -11,8 +11,7 @@ public class MysteryShip : MonoBehaviour
     void Start()
     {
         pointValue = 200;
-        shipSpeed = 0.01f;
-        //gameObject.transform.position = new Vector3(-10.0f, 0.0f, 8.0f);
+        shipSpeed = 0.05f;
     }
 
     // Update is called once per frame
@@ -29,11 +28,22 @@ public class MysteryShip : MonoBehaviour
         {
             gameObject.transform.position = updatedPosition;
         }
+
+        // If win level, reset grid 
+        if (Global.invadersRemaining == 0)
+        {
+            ResetShip();
+        }
     }
 
     public void UpdateSpeed()
     {
         shipSpeed *= -1.0f;
+    }
+
+    public void ResetShip()
+    {
+        shipSpeed = 0.05f;
     }
 
     public void Die()

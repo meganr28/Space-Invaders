@@ -19,6 +19,22 @@ public class Invader : MonoBehaviour
         FireMissile();
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        Collider collider = collision.collider;
+        if (collider.CompareTag("ShieldPiece"))
+        {
+            ShieldPiece shieldPiece = collider.gameObject.GetComponent<ShieldPiece>();
+            shieldPiece.Die();
+        }
+        else
+        {
+            // if we collided with something else, print to console 
+            // what the other thing was 
+            Debug.Log("Collided with " + collider.tag);
+        }
+    }
+    
     public void Die()
     {
         int pointValue = 10;                   // large

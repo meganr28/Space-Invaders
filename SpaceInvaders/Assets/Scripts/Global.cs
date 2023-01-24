@@ -9,6 +9,7 @@ public class Global : MonoBehaviour
     public static bool levelWon = false;
     public static bool isGameOver = false;
     public static int invadersRemaining = 55;
+    public static int lastInvadersRemaining = 55;
     public int score;
     public int level;
     public int lives;
@@ -30,7 +31,7 @@ public class Global : MonoBehaviour
 
     public void NextLevel()
     {
-        invadersRemaining = 9;
+        invadersRemaining = 55;
         lives = 3;
         level = (level + 1) % 5;
     }

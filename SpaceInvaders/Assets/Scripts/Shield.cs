@@ -21,7 +21,11 @@ public class Shield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // If win level, reset grid 
+        if (Global.invadersRemaining == 0)
+        {
+            InstantiateShield();
+        }
     }
 
     public void InstantiateShield()

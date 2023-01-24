@@ -39,7 +39,10 @@ public class PlayerMissile : MonoBehaviour
             // let the other object handle its own death throes 
             invader.Die();
             // Increment the number of invaders killed
-            Global.invadersRemaining--;
+            if (Global.invadersRemaining > 0)
+            {
+                Global.invadersRemaining--;
+            }
             Debug.Log("Invaders remaining: " + Global.invadersRemaining);
             // Destroy the Missile that collided with the Invader 
             Destroy(gameObject);
