@@ -17,22 +17,25 @@ public class MysteryShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 updatedPosition = gameObject.transform.position;
-        updatedPosition.x += shipSpeed;
+        if (!Global.isGamePaused)
+        {
+            Vector3 updatedPosition = gameObject.transform.position;
+            updatedPosition.x += shipSpeed;
 
-        if (shipSpeed < 0 && updatedPosition.x < -12.0f || shipSpeed > 0 && updatedPosition.x > 12.0f)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            gameObject.transform.position = updatedPosition;
-        }
+            if (shipSpeed < 0 && updatedPosition.x < -12.0f || shipSpeed > 0 && updatedPosition.x > 12.0f)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                gameObject.transform.position = updatedPosition;
+            }
 
-        // If win level, reset grid 
-        if (Global.invadersRemaining == 0)
-        {
-            ResetShip();
+            // If win level, reset grid 
+            if (Global.invadersRemaining == 0)
+            {
+                ResetShip();
+            }
         }
     }
 

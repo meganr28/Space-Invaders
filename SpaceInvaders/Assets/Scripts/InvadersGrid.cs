@@ -34,7 +34,10 @@ public class InvadersGrid : MonoBehaviour
         maxX = 11.5f;
 
         // Fire missiles at certain intervals
-        InvokeRepeating("FireMissiles", 1f, 1f);
+        if (!Global.isGamePaused)
+        {
+            InvokeRepeating("FireMissiles", 1f, 1f);
+        }
     }
 
     // Update is called once per frame

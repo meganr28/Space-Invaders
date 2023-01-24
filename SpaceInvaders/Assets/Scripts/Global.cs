@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Global : MonoBehaviour
 {
+    public GameObject playerPrefab;
     public static Vector3 respawnPosition;
+
     public static bool levelWon = false;
     public static bool isGameOver = false;
+    public static bool isGamePaused = false;
     public static int invadersRemaining = 55;
     public static int lastInvadersRemaining = 55;
     public int score;
@@ -31,15 +34,23 @@ public class Global : MonoBehaviour
 
     public void NextLevel()
     {
+        // Reset variables
         invadersRemaining = 55;
         lives = 3;
         level = (level + 1) % 5;
     }
 
-    public IEnumerator PauseGame(float pauseDuration)
+    public void LoseLife()
     {
-        Debug.Log("In Pause Game");
-        // Pause game for 5 seconds
+        // Pause game and instantiate player at different position
+        StartCoroutine(PauseGameLife(3.0f));
+    }
+
+    public IEnumerator PauseGameLife(float pauseDuration)
+    {
+        Debug.Log("In Pause Lost Life");
+        // Pause game for 3 seconds
+        isGamePaused = true;
         Time.timeScale = 0f;
         float pauseEndTime = Time.realtimeSinceStartup + pauseDuration;
         while (Time.realtimeSinceStartup < pauseEndTime)
@@ -47,22 +58,37 @@ public class Global : MonoBehaviour
             yield return 0;
         }
         Time.timeScale = 1f;
-        ResetGame();
+        // Unpause game and respawn player
+        Instantiate(playerPrefab, respawnPosition, Quaternion.identity);
+        isGamePaused = false;
     }
 
-    public void ResetGame()
+    public IEnumerator PauseGame(float pauseDuration)
+    {
+        Debug.Log("In Pause Game Over");
+        // Pause game for 5 seconds
+        isGamePaused = true;
+        Time.timeScale = 0f;
+        float pauseEndTime = Time.realtimeSinceStartup + pauseDuration;
+        while (Time.realtimeSinceStartup < pauseEndTime)
+        {
+            yield return 0;
+        }
+        Time.timeScale = 1f;
+        // Unpause game
+        isGamePaused = false;
+        RestartGame();
+    }
+
+    public void RestartGame()
     {
         Global.isGameOver = false;
-        Debug.Log("Is Game Over 2: " + Global.isGameOver);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // TODO: change this to start screen
         SceneManager.LoadScene("StartScene");
     }
 
     public void GameOver()
     {
         Global.isGameOver = true;
-        Debug.Log("Is Game Over 1: " + Global.isGameOver);
-
         StartCoroutine(PauseGame(5.0f));
     }
 }

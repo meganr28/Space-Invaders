@@ -45,15 +45,18 @@ public class EnemyMissile : MonoBehaviour
             if (g.lives > 0)
             {
                 g.lives--;
+                player.Die();
+
+                // If no more lives, then game over
                 if (g.lives == 0)
                 {
                     // Display GameOver and then reload scene
                     g.GameOver();
-                    //player.Die();
                 }
+                // else, pause and respawn player
                 else
                 {
-                    player.Respawn();
+                    g.LoseLife();
                 }
             }
 
