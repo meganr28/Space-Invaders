@@ -56,18 +56,15 @@ public class InvadersGrid : MonoBehaviour
                 direction *= -1.0f;
                 this.transform.position -= Vector3.forward * decrementStep;
             }
-
-            // TODO: stop movement when it reaches bottom of the screen and set GlobalObject's gameOver flag
         }
 
         // If win level, reset grid 
-        if (Global.invadersRemaining == 0)
+        if (Global.invadersRemaining == 0 && !Global.isGameOver)
         {
             Debug.Log("Reinstantiating Grid");
             GameObject obj = GameObject.Find("GlobalObject");
             Global g = obj.GetComponent<Global>();
             g.NextLevel();
-            //InstantiateGrid();
             ResetGrid();
         }
 
@@ -125,7 +122,6 @@ public class InvadersGrid : MonoBehaviour
         foreach (Transform invader in this.transform)
         {
             // Decide if this invader should randomly fire a missile
-            // TODO: constrain to three onscreen at a time
             float xi = Random.Range(0.0f, 1.0f);
             if (numMissilesFired < 3 && xi < (1.0f / Global.invadersRemaining))
             {
@@ -147,6 +143,7 @@ public class InvadersGrid : MonoBehaviour
         direction = Vector3.right;
         invaderSpeed = 0.5f;
         numMissilesFired = 0;
+
         InstantiateGrid();
     }
 

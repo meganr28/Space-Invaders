@@ -12,8 +12,8 @@ public class Global : MonoBehaviour
     public static bool isGameOver = false;
     public static bool isGamePaused = false;
     public static int invadersRemaining = 55;
-    public static int lastInvadersRemaining = 55;
     public int score;
+    public int hiScore;
     public int level;
     public int lives;
 
@@ -29,7 +29,10 @@ public class Global : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (invadersRemaining == 0 && !isGameOver)
+        {
+            levelWon = true;
+        }
     }
 
     public void NextLevel()
