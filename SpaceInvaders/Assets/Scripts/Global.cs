@@ -54,7 +54,8 @@ public class Global : MonoBehaviour
     {
         Global.isGameOver = false;
         Debug.Log("Is Game Over 2: " + Global.isGameOver);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // TODO: change this to start screen
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // TODO: change this to start screen
+        SceneManager.LoadScene("StartScene");
     }
 
     public void GameOver()

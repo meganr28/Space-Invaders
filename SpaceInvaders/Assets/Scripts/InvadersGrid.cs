@@ -29,7 +29,7 @@ public class InvadersGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        invaderSpeed = 0.5f;
+        invaderSpeed = 1.0f;
         minX = -11.5f;
         maxX = 11.5f;
 

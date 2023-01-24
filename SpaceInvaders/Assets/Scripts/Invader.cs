@@ -27,6 +27,16 @@ public class Invader : MonoBehaviour
             ShieldPiece shieldPiece = collider.gameObject.GetComponent<ShieldPiece>();
             shieldPiece.Die();
         }
+        else if (collider.CompareTag("PlayerShip"))
+        {
+            PlayerShip player = collider.gameObject.GetComponent<PlayerShip>();
+            player.Die();
+
+            // If invader collides with player, then automatic game over
+            GameObject obj = GameObject.Find("GlobalObject");
+            Global g = obj.GetComponent<Global>();
+            g.GameOver();
+        }
         else
         {
             // if we collided with something else, print to console 
