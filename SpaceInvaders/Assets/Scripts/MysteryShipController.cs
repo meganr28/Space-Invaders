@@ -13,7 +13,7 @@ public class MysteryShipController : MonoBehaviour
         spawnPosition = new Vector3(-10.0f, 0.0f, 8.0f);
 
         // Spawn ships at certain intervals
-        InvokeRepeating("SpawnMysteryShip", 5f, 20f);
+        InvokeRepeating("SpawnMysteryShip", 5f, 25f);
     }
 
     // Update is called once per frame

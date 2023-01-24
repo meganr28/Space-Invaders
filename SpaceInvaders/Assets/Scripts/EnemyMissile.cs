@@ -63,6 +63,12 @@ public class EnemyMissile : MonoBehaviour
                 InvadersGrid.numMissilesFired--;
             }
         }
+        else if (collider.CompareTag("PlayerMissile"))
+        {
+            PlayerMissile playerMissile = collider.gameObject.GetComponent<PlayerMissile>();
+            playerMissile.Die();
+            Destroy(gameObject);
+        }
         else if (collider.CompareTag("Wall"))
         {
             Destroy(gameObject);
@@ -78,7 +84,10 @@ public class EnemyMissile : MonoBehaviour
             shieldPiece.Die();
             // Destroy the Missile that collided with the ShieldPiece 
             Destroy(gameObject);
-
+            if (InvadersGrid.numMissilesFired > 0)
+            {
+                InvadersGrid.numMissilesFired--;
+            }
         }
         else
         {

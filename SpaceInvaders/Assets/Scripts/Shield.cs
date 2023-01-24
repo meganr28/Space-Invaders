@@ -26,7 +26,17 @@ public class Shield : MonoBehaviour
 
     public void InstantiateShield()
     {
-        // Instantiate one shield piece at the given position
-        Instantiate(shieldPiecePrefab, shieldPosition, Quaternion.identity, this.transform);
+        //// Instantiate top piece
+        //Instantiate(shieldPiecePrefab, new Vector3(shieldPosition.x, shieldPosition.y, shieldPosition.z + 1.0f), Quaternion.identity, this.transform);
+
+        // Instantiate "feet"
+        Instantiate(shieldPiecePrefab, new Vector3(shieldPosition.x - 1.0f, shieldPosition.y, shieldPosition.z - 1.0f), Quaternion.identity);
+        Instantiate(shieldPiecePrefab, new Vector3(shieldPosition.x + 1.0f, shieldPosition.y, shieldPosition.z - 1.0f), Quaternion.identity);
+
+        // Instantiate middle bar
+        for (float i = shieldPosition.x - 1.0f; i <= shieldPosition.x + 1.0f; i++)
+        {
+            Instantiate(shieldPiecePrefab, new Vector3(i, shieldPosition.y, shieldPosition.z), Quaternion.identity);
+        }
     }
 }

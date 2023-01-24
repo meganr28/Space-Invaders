@@ -54,12 +54,12 @@ public class PlayerMissile : MonoBehaviour
         }
         else if (collider.CompareTag("ShieldPiece"))
         {
+            Debug.Log("collided with shield piece");
             ShieldPiece shieldPiece = collider.gameObject.GetComponent<ShieldPiece>();
             // let the other object handle its own death throes 
             shieldPiece.Die();
             // Destroy the Missile that collided with the ShieldPiece 
             Destroy(gameObject);
-
         }
         else
         {
@@ -67,5 +67,10 @@ public class PlayerMissile : MonoBehaviour
             // what the other thing was 
             Debug.Log("Collided with " + collider.tag);
         }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

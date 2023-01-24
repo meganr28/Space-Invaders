@@ -11,7 +11,7 @@ public class MysteryShip : MonoBehaviour
     void Start()
     {
         pointValue = 200;
-        shipSpeed = 0.003f;
+        shipSpeed = 0.01f;
         //gameObject.transform.position = new Vector3(-10.0f, 0.0f, 8.0f);
     }
 
@@ -21,7 +21,7 @@ public class MysteryShip : MonoBehaviour
         Vector3 updatedPosition = gameObject.transform.position;
         updatedPosition.x += shipSpeed;
 
-        if (shipSpeed < 0 && updatedPosition.x < -10.0f || shipSpeed > 0 && updatedPosition.x > 10.0f)
+        if (shipSpeed < 0 && updatedPosition.x < -12.0f || shipSpeed > 0 && updatedPosition.x > 12.0f)
         {
             Destroy(gameObject);
         }

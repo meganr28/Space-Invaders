@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7893623745118327179}
   - component: {fileID: 5569151320497475665}
   - component: {fileID: 2589337205533680975}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShieldPiecePrefab
   m_TagString: ShieldPiece
   m_Icon: {fileID: 0}

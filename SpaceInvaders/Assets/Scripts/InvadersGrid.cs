@@ -21,8 +21,8 @@ public class InvadersGrid : MonoBehaviour
     private Vector3 direction = Vector3.right;
     private float decrementStep = 0.1f;
     private float spacing = 1.5f;
-    private int rows = 3;
-    private int columns = 3;
+    private int rows = 5;
+    private int columns = 11;
 
     void Awake()
     {
@@ -33,13 +33,13 @@ public class InvadersGrid : MonoBehaviour
     void Start()
     {
         invaderSpeed = 0.5f;
-        minX = -9.5f;
-        maxX = 9.5f;
+        minX = -11.5f;
+        maxX = 11.5f;
         timer = 0;
         spawnPeriod = 2.0f;
 
         // Fire missiles at certain intervals
-        InvokeRepeating("FireMissiles", 1f, 2f);
+        InvokeRepeating("FireMissiles", 1f, 1f);
     }
 
     // Update is called once per frame
@@ -126,8 +126,8 @@ public class InvadersGrid : MonoBehaviour
             float xi = Random.Range(0.0f, 1.0f);
             if (numMissilesFired < 3 && xi < (1.0f / Global.invadersRemaining))
             {
-                Debug.Log("Enemy Missile fired!");
                 numMissilesFired++;
+                Debug.Log("Enemy Missile fired! Num Missiles Fired: " + numMissilesFired);
 
                 Vector3 spawnPos = invader.position;
                 spawnPos.z -= 0.75f; // add slight offset so that missile spawns at bottom of invader

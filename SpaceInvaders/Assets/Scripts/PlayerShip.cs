@@ -14,8 +14,8 @@ public class PlayerShip : MonoBehaviour
     {
         //respawnPosition = new Vector3(-9.0f, 0.0f, -7.5f);
         playerSpeed = 0.1f;
-        minX = -9.5f;
-        maxX = 9.5f;
+        minX = -11.5f;
+        maxX = 11.5f;
     }
 
     // Update is called once per frame

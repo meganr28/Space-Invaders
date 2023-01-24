@@ -8,7 +8,7 @@ public class Global : MonoBehaviour
     public static Vector3 respawnPosition;
     public static bool levelWon = false;
     public static bool isGameOver = false;
-    public static int invadersRemaining = 9;
+    public static int invadersRemaining = 55;
     public int score;
     public int level;
     public int lives;
