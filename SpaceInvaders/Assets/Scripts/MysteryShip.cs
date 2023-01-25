@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class MysteryShip : MonoBehaviour
 {
+    AudioSource flyingSound;
     public int pointValue;
     public float shipSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
+        flyingSound = GetComponent<AudioSource>();
         pointValue = 200;
         shipSpeed = 3.0f;
+
+        flyingSound.Play();
     }
 
     // Update is called once per frame
@@ -37,6 +41,10 @@ public class MysteryShip : MonoBehaviour
             {
                 ResetShip();
             }
+        }
+        else
+        {
+            flyingSound.Stop();
         }
     }
 

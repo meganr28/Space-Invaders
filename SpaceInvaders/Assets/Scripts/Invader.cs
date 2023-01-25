@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Invader : MonoBehaviour
 {
+    public AudioClip deathKnell;
     public GameObject missile;
     public int invaderType; // small, medium, large
 
@@ -48,6 +49,9 @@ public class Invader : MonoBehaviour
     
     public void Die()
     {
+        // Play explosion clip
+        AudioSource.PlayClipAtPoint(deathKnell, Camera.main.transform.position);
+
         int pointValue = 10;                   // large
         if (invaderType == 1) pointValue = 20; // medium
         if (invaderType == 2) pointValue = 30; // small

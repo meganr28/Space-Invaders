@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerShip : MonoBehaviour
 {
+    public AudioClip deathKnell;
     public GameObject missile;
     //public Vector3 respawnPosition;
     public float playerSpeed;
@@ -58,6 +59,9 @@ public class PlayerShip : MonoBehaviour
 
     public void Die()
     {
+        // Play explosion clip
+        AudioSource.PlayClipAtPoint(deathKnell, Camera.main.transform.position);
+
         Destroy(gameObject);
     }
 
