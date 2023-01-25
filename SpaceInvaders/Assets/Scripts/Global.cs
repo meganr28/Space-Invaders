@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Global : MonoBehaviour
 {
+    public GameObject topCamera;
+    public GameObject frontCamera;
     public GameObject playerPrefab;
     public static Vector3 respawnPosition;
 
@@ -32,6 +34,17 @@ public class Global : MonoBehaviour
         if (invadersRemaining == 0 && !isGameOver)
         {
             levelWon = true;
+        }
+
+        if (topCamera.activeInHierarchy && Input.GetKeyDown(KeyCode.F))
+        {
+            topCamera.SetActive(false);
+            frontCamera.SetActive(true);
+        }
+        else if (frontCamera.activeInHierarchy && Input.GetKeyDown(KeyCode.F))
+        {
+            frontCamera.SetActive(false);
+            topCamera.SetActive(true);
         }
     }
 

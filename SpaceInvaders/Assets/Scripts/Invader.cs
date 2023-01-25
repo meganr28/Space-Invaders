@@ -50,7 +50,7 @@ public class Invader : MonoBehaviour
     public void Die()
     {
         // Play explosion clip
-        AudioSource.PlayClipAtPoint(deathKnell, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(deathKnell, Camera.allCameras[0].transform.position);
 
         int pointValue = 10;                   // large
         if (invaderType == 1) pointValue = 20; // medium
