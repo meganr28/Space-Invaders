@@ -71,6 +71,10 @@ public class EnemyMissile : MonoBehaviour
             PlayerMissile playerMissile = collider.gameObject.GetComponent<PlayerMissile>();
             playerMissile.Die();
             Destroy(gameObject);
+            if (PlayerShip.numMissilesFired > 0)
+            {
+                PlayerShip.numMissilesFired--;
+            }
         }
         else if (collider.CompareTag("Wall"))
         {

@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d748510d793a18047935876b2fb5e86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathKnell: {fileID: 8300000, guid: e93d5cbd4a12fe540a2b627c99c00b85, type: 3}
   pointValue: 0
   shipSpeed: 0
 --- !u!54 &6639325909380334776

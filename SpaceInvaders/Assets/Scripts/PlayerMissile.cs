@@ -27,7 +27,15 @@ public class PlayerMissile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Vector3 currentPosition = gameObject.transform.position;
+        if (currentPosition.z > 10.5)
+        {
+            Destroy(gameObject);
+            if (PlayerShip.numMissilesFired > 0)
+            {
+                PlayerShip.numMissilesFired--;
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -46,6 +54,10 @@ public class PlayerMissile : MonoBehaviour
             Debug.Log("Invaders remaining: " + Global.invadersRemaining);
             // Destroy the Missile that collided with the Invader 
             Destroy(gameObject);
+            if (PlayerShip.numMissilesFired > 0)
+            {
+                PlayerShip.numMissilesFired--;
+            }
         }
         else if (collider.CompareTag("MysteryShip"))
         {
@@ -54,6 +66,10 @@ public class PlayerMissile : MonoBehaviour
             ship.Die();
             // Destroy the Missile that collided with the MysteryShip 
             Destroy(gameObject);
+            if (PlayerShip.numMissilesFired > 0)
+            {
+                PlayerShip.numMissilesFired--;
+            }
         }
         else if (collider.CompareTag("ShieldPiece"))
         {
@@ -63,6 +79,10 @@ public class PlayerMissile : MonoBehaviour
             shieldPiece.Die();
             // Destroy the Missile that collided with the ShieldPiece 
             Destroy(gameObject);
+            if (PlayerShip.numMissilesFired > 0)
+            {
+                PlayerShip.numMissilesFired--;
+            }
         }
         else
         {

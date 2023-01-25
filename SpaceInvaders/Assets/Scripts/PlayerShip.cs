@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerShip : MonoBehaviour
 {
+    public static int numMissilesFired = 0;
+
     public AudioClip deathKnell;
     public GameObject missile;
-    //public Vector3 respawnPosition;
     public float playerSpeed;
     public float minX, maxX;
 
     // Start is called before the first frame update
     void Start()
     {
-        //respawnPosition = new Vector3(-9.0f, 0.0f, -7.5f);
         playerSpeed = 7.0f;
         minX = -11.5f;
         maxX = 11.5f;
@@ -39,9 +39,9 @@ public class PlayerShip : MonoBehaviour
             gameObject.transform.position = updatedPosition;
 
             // Handle missile firing
-            if (Input.GetKeyDown("space"))
+            if (numMissilesFired == 0 && Input.GetKeyDown("space"))    
             {
-                Debug.Log("Missile fired!");
+                Debug.Log("Missile fired!");    
 
                 Vector3 spawnPos = gameObject.transform.position;
                 spawnPos.z += 0.5f; // add slight offset so that bullet spawns at front of player ship
@@ -53,6 +53,8 @@ public class PlayerShip : MonoBehaviour
                 // set the direction the Bullet will travel in 
                 Quaternion rot = Quaternion.Euler(new Vector3(0, 0, 0));
                 m.direction = rot;
+
+                numMissilesFired++;
             }
         }
     }

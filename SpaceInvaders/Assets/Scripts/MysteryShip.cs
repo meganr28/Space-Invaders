@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MysteryShip : MonoBehaviour
 {
+    public AudioClip deathKnell;
     AudioSource flyingSound;
     public int pointValue;
     public float shipSpeed;
@@ -60,6 +61,9 @@ public class MysteryShip : MonoBehaviour
 
     public void Die()
     {
+        // Play explosion clip
+        AudioSource.PlayClipAtPoint(deathKnell, Camera.allCameras[0].transform.position);
+
         GameObject obj = GameObject.Find("GlobalObject");
         Global g = obj.GetComponent<Global>();
         g.score += pointValue;
