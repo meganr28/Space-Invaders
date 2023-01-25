@@ -36,7 +36,7 @@ public class InvadersGrid : MonoBehaviour
         // Fire missiles at certain intervals
         if (!Global.isGamePaused)
         {
-            InvokeRepeating("FireMissiles", 1f, 1f);
+            InvokeRepeating("FireMissiles", 1f, 0.5f);
         }
     }
 
@@ -115,15 +115,18 @@ public class InvadersGrid : MonoBehaviour
 
     public void FireMissiles()
     {
-        // Randomly fire missiles
-        // If invader does not have active invader in the front (check if one row down isActive), then fire missile 
+        // Get layer mask (6 = Invaders)
+        int layerMask = 1 << 6;
 
         // Loop through each child (invader) transform
         foreach (Transform invader in this.transform)
         {
-            // Decide if this invader should randomly fire a missile
+            // Check if invader in front, if not, do not fire missile
+            RaycastHit hit;
+            bool invaderInFront = Physics.Raycast(invader.position, invader.TransformDirection(Vector3.back), out hit, Mathf.Infinity, layerMask);
+            // If random number is within probability, then fire missile
             float xi = Random.Range(0.0f, 1.0f);
-            if (numMissilesFired < 3 && xi < (1.0f / Global.invadersRemaining))
+            if (!invaderInFront && numMissilesFired < 3 && xi < (1.0f / Global.invadersRemaining))
             {
                 numMissilesFired++;
                 Debug.Log("Enemy Missile fired! Num Missiles Fired: " + numMissilesFired);
