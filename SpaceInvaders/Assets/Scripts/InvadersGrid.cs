@@ -141,7 +141,7 @@ public class InvadersGrid : MonoBehaviour
     public void ResetGrid()
     {
         direction = Vector3.right;
-        invaderSpeed = 0.5f;
+        invaderSpeed = 1.0f;
         numMissilesFired = 0;
 
         InstantiateGrid();
