@@ -11,7 +11,7 @@ public class MysteryShip : MonoBehaviour
     void Start()
     {
         pointValue = 200;
-        shipSpeed = 0.05f;
+        shipSpeed = 3.0f;
     }
 
     // Update is called once per frame
@@ -20,7 +20,8 @@ public class MysteryShip : MonoBehaviour
         if (!Global.isGamePaused)
         {
             Vector3 updatedPosition = gameObject.transform.position;
-            updatedPosition.x += shipSpeed;
+            //updatedPosition.x += shipSpeed;
+            updatedPosition += Vector3.right * shipSpeed * Time.deltaTime;
 
             if (shipSpeed < 0 && updatedPosition.x < -12.0f || shipSpeed > 0 && updatedPosition.x > 12.0f)
             {

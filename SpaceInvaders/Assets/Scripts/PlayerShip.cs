@@ -13,7 +13,7 @@ public class PlayerShip : MonoBehaviour
     void Start()
     {
         //respawnPosition = new Vector3(-9.0f, 0.0f, -7.5f);
-        playerSpeed = 0.1f;
+        playerSpeed = 7.0f;
         minX = -11.5f;
         maxX = 11.5f;
     }
@@ -28,11 +28,11 @@ public class PlayerShip : MonoBehaviour
             // Only move if within boundaries
             if (updatedPosition.x < maxX && Input.GetAxisRaw("Horizontal") > 0)
             {
-                updatedPosition.x += playerSpeed;
+                updatedPosition += Vector3.right * playerSpeed * Time.deltaTime;
             }
             else if (updatedPosition.x > minX && Input.GetAxisRaw("Horizontal") < 0)
             {
-                updatedPosition.x -= playerSpeed;
+                updatedPosition -= Vector3.right * playerSpeed * Time.deltaTime;
             }
 
             gameObject.transform.position = updatedPosition;

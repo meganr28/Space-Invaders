@@ -16,7 +16,7 @@ public class Invader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FireMissile();
+        
     }
 
     void OnCollisionEnter(Collision collision)
@@ -35,6 +35,7 @@ public class Invader : MonoBehaviour
             // If invader collides with player, then automatic game over
             GameObject obj = GameObject.Find("GlobalObject");
             Global g = obj.GetComponent<Global>();
+            if (g.lives > 0) g.lives--;
             g.GameOver();
         }
         else
@@ -55,25 +56,5 @@ public class Invader : MonoBehaviour
         Global g = obj.GetComponent<Global>();
         g.score += pointValue;
         Destroy(gameObject);
-    }
-
-    public void FireMissile()
-    {
-        // Handle missile firing
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Debug.Log("Enemy Missile fired!");
-
-            Vector3 spawnPos = gameObject.transform.position;
-            spawnPos.z -= 0.75f; // add slight offset so that bullet spawns at front of player ship
-
-            // instantiate the Missile
-            GameObject obj = Instantiate(missile, spawnPos, Quaternion.identity) as GameObject;
-            // get the Missile Script Component of the new Bullet instance 
-            EnemyMissile m = obj.GetComponent<EnemyMissile>();
-            // set the direction the Bullet will travel in 
-            Quaternion rot = Quaternion.Euler(new Vector3(0, 0, 0));
-            m.direction = rot;
-        }
     }
 }
