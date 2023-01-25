@@ -19,6 +19,8 @@ public class Global : MonoBehaviour
     public int level;
     public int lives;
 
+    public List<GameObject> activeMissiles = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +56,12 @@ public class Global : MonoBehaviour
         invadersRemaining = 55;
         lives = 3;
         level = (level + 1) % 5;
+
+        // Clear any active missiles
+        for (int i = 0; i < activeMissiles.Count; i++)
+        {
+            Destroy(activeMissiles[i].gameObject);
+        }
     }
 
     public void LoseLife()

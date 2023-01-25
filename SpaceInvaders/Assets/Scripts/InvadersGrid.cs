@@ -136,6 +136,12 @@ public class InvadersGrid : MonoBehaviour
 
                 // instantiate the Missile
                 GameObject obj = Instantiate(enemyMissilePrefab, spawnPos, Quaternion.identity) as GameObject;
+
+                // Add to list of currently active missiles
+                GameObject globalObj = GameObject.Find("GlobalObject");
+                Global g = globalObj.GetComponent<Global>();
+                g.activeMissiles.Add(obj);
+                //Debug.Log("num active missiles: " + g.activeMissiles.Count);
                 break;
             }
         }

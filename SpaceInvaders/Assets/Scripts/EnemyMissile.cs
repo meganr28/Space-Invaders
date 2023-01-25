@@ -33,13 +33,13 @@ public class EnemyMissile : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         Collider collider = collision.collider;
+        GameObject obj = GameObject.Find("GlobalObject");
+        Global g = obj.GetComponent<Global>();
         if (collider.CompareTag("PlayerShip"))
         {
             PlayerShip player = collider.gameObject.GetComponent<PlayerShip>();
 
             // Update lives counter
-            GameObject obj = GameObject.Find("GlobalObject");
-            Global g = obj.GetComponent<Global>();
 
             // Either die or respawn player
             if (g.lives > 0)
@@ -65,6 +65,8 @@ public class EnemyMissile : MonoBehaviour
             {
                 InvadersGrid.numMissilesFired--;
             }
+            g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
+            //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else if (collider.CompareTag("PlayerMissile"))
         {
@@ -75,6 +77,8 @@ public class EnemyMissile : MonoBehaviour
             {
                 PlayerShip.numMissilesFired--;
             }
+            g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
+            //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else if (collider.CompareTag("Wall"))
         {
@@ -83,6 +87,8 @@ public class EnemyMissile : MonoBehaviour
             {
                 InvadersGrid.numMissilesFired--;
             }
+            g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
+            //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else if (collider.CompareTag("ShieldPiece"))
         {
@@ -95,6 +101,8 @@ public class EnemyMissile : MonoBehaviour
             {
                 InvadersGrid.numMissilesFired--;
             }
+            g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
+            //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else
         {
