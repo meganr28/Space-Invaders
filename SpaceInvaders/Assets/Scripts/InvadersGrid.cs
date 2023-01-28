@@ -18,8 +18,8 @@ public class InvadersGrid : MonoBehaviour
     private Vector3 direction = Vector3.right;
     private float decrementStep = 0.5f;
     private float spacing = 1.5f;
-    private int rows = 5;
-    private int columns = 11;
+    private int rows = 3;
+    private int columns = 3;
 
     void Awake()
     {
@@ -36,27 +36,27 @@ public class InvadersGrid : MonoBehaviour
         // Fire missiles at certain intervals
         if (!Global.isGamePaused)
         {
-            InvokeRepeating("FireMissiles", 1f, 0.5f);
+            //InvokeRepeating("FireMissiles", 1f, 0.5f);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Invaders should always move in one of the horizontal directions
-        this.transform.position += direction * invaderSpeed * Time.deltaTime;
+        //// Invaders should always move in one of the horizontal directions
+        //this.transform.position += direction * invaderSpeed * Time.deltaTime;
 
-        // Loop through each child (invader) transform
-        foreach (Transform invader in this.transform)
-        {
-            // If invaders have reached either edge, flip direction and decrement row
-            if (direction == Vector3.left && invader.position.x < minX || direction == Vector3.right && invader.position.x > maxX)
-            {
-                //Debug.Log("Decrementing step");
-                direction *= -1.0f;
-                this.transform.position -= Vector3.forward * decrementStep;
-            }
-        }
+        //// Loop through each child (invader) transform
+        //foreach (Transform invader in this.transform)
+        //{
+        //    // If invaders have reached either edge, flip direction and decrement row
+        //    if (direction == Vector3.left && invader.position.x < minX || direction == Vector3.right && invader.position.x > maxX)
+        //    {
+        //        //Debug.Log("Decrementing step");
+        //        direction *= -1.0f;
+        //        this.transform.position -= Vector3.forward * decrementStep;
+        //    }
+        //}
 
         // If win level, reset grid 
         if (Global.invadersRemaining == 0 && !Global.isGameOver)
@@ -65,21 +65,27 @@ public class InvadersGrid : MonoBehaviour
             GameObject obj = GameObject.Find("GlobalObject");
             Global g = obj.GetComponent<Global>();
             g.NextLevel();
-            ResetGrid();
+            //ResetGrid();
         }
 
-        // Increase speed after certain number of invaders remaining
-        if (Global.invadersRemaining <= 10)
+        if (Global.resetGrid)
         {
-            invaderSpeed = 0.85f / (Global.invadersRemaining / 10.0f);
+            ResetGrid();
+            Global.resetGrid = false;
         }
+
+        //// Increase speed after certain number of invaders remaining
+        //if (Global.invadersRemaining <= 10)
+        //{
+        //    invaderSpeed = 0.85f / (Global.invadersRemaining / 10.0f);
+        //}
     }
 
     public void InstantiateGrid()
     {
         // Change the center position depending on the level
-        GameObject obj = GameObject.Find("GlobalObject");
-        Global g = obj.GetComponent<Global>();
+        GameObject globalObj = GameObject.Find("GlobalObject");
+        Global g = globalObj.GetComponent<Global>();
         center = new Vector3(0, 0, 3) - (g.level - 1) * Vector3.forward;
 
         // How far the grid extends in either direction
@@ -136,12 +142,6 @@ public class InvadersGrid : MonoBehaviour
 
                 // instantiate the Missile
                 GameObject obj = Instantiate(enemyMissilePrefab, spawnPos, Quaternion.identity) as GameObject;
-
-                // Add to list of currently active missiles
-                GameObject globalObj = GameObject.Find("GlobalObject");
-                Global g = globalObj.GetComponent<Global>();
-                g.activeMissiles.Add(obj);
-                //Debug.Log("num active missiles: " + g.activeMissiles.Count);
                 break;
             }
         }
@@ -149,6 +149,7 @@ public class InvadersGrid : MonoBehaviour
 
     public void ResetGrid()
     {
+        Debug.Log("Resetting grid");
         direction = Vector3.right;
         invaderSpeed = 1.0f;
         numMissilesFired = 0;

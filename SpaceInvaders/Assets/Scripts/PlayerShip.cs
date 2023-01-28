@@ -39,7 +39,7 @@ public class PlayerShip : MonoBehaviour
             gameObject.transform.position = updatedPosition;
 
             // Handle missile firing
-            if (numMissilesFired == 0 && Input.GetKeyDown("space"))    
+            if (Input.GetKeyDown("space"))    
             {
                 Debug.Log("Missile fired!");    
 
@@ -48,6 +48,7 @@ public class PlayerShip : MonoBehaviour
 
                 // instantiate the Missile
                 GameObject obj = Instantiate(missile, spawnPos, Quaternion.identity) as GameObject;
+
                 // get the Missile Script Component of the new Bullet instance 
                 PlayerMissile m = obj.GetComponent<PlayerMissile>();
                 // set the direction the Bullet will travel in 

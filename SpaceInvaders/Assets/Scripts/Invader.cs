@@ -7,17 +7,34 @@ public class Invader : MonoBehaviour
     public AudioClip deathKnell;
     public GameObject missile;
     public int invaderType; // small, medium, large
+    public float minX, maxX;
+
+    public int state; // 0 = dead, 1 = alive
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Start alive
+        state = 1;
+        minX = -12f;
+        maxX = 12f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 currentPosition = gameObject.transform.position;
+
+        if (currentPosition.z < -10.5)
+        {
+            Destroy(gameObject);
+        }
+
+        if (currentPosition.x < minX || currentPosition.x > maxX)
+        {
+            // Let invader fall down the sides
+            GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionZ;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -31,24 +48,31 @@ public class Invader : MonoBehaviour
         else if (collider.CompareTag("PlayerShip"))
         {
             PlayerShip player = collider.gameObject.GetComponent<PlayerShip>();
-            player.Die();
+            //player.Die();
 
             // If invader collides with player, then automatic game over
             GameObject obj = GameObject.Find("GlobalObject");
             Global g = obj.GetComponent<Global>();
-            if (g.lives > 0) g.lives--;
-            g.GameOver();
+            //if (g.lives > 0) g.lives--;
+            //g.GameOver();
+        }
+        else if (collider.CompareTag("Wall"))
+        {
+            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+            rb.constraints |= RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
             // if we collided with something else, print to console 
             // what the other thing was 
-            Debug.Log("Collided with " + collider.tag);
+            //Debug.Log("Collided with " + collider.tag);
         }
     }
     
     public void Die()
     {
+        state = 0;
+
         // Play explosion clip
         AudioSource.PlayClipAtPoint(deathKnell, Camera.allCameras[0].transform.position);
 
@@ -59,6 +83,20 @@ public class Invader : MonoBehaviour
         GameObject obj = GameObject.Find("GlobalObject");
         Global g = obj.GetComponent<Global>();
         g.score += pointValue;
-        Destroy(gameObject);
+
+        // Make invader fall to the ground
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionX;
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionZ;
+        rb.useGravity = true;
+
+        // If invader is not already dead, decrement the number of invaders remaining
+        if (Global.invadersRemaining > 0)
+        {
+            Global.invadersRemaining--;
+        }
+        Debug.Log("Invaders remaining: " + Global.invadersRemaining);
+
+        //Destroy(gameObject);
     }
 }

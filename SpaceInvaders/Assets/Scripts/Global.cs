@@ -11,15 +11,18 @@ public class Global : MonoBehaviour
     public static Vector3 respawnPosition;
 
     public static bool levelWon = false;
+    public static bool resetGrid = false;
     public static bool isGameOver = false;
     public static bool isGamePaused = false;
-    public static int invadersRemaining = 55;
+    public static int invadersRemaining = 9;
     public int score;
     public int hiScore;
     public int level;
     public int lives;
 
-    public List<GameObject> activeMissiles = new List<GameObject>();
+    public GameObject[] invaders;
+    public GameObject[] playerMissiles;
+    public GameObject[] enemyMissiles;
 
     // Start is called before the first frame update
     void Start()
@@ -52,15 +55,38 @@ public class Global : MonoBehaviour
 
     public void NextLevel()
     {
+        Debug.Log("CHANGING LEVEL");
         // Reset variables
-        invadersRemaining = 55;
+        levelWon = true;
+        invadersRemaining = 9;
         lives = 3;
         level = (level + 1) % 5;
 
-        // Clear any active missiles
-        for (int i = 0; i < activeMissiles.Count; i++)
+        StartCoroutine(WaitForContinue());
+    }
+
+    public IEnumerator WaitForContinue()
+    {
+        Debug.Log("In wait for continue");
+        while(!Input.GetKeyDown(KeyCode.X))
         {
-            Destroy(activeMissiles[i].gameObject);
+            yield return null;
+        }
+        levelWon = false;
+        resetGrid = true;
+
+        // Clear any remaining debris on the screen
+        invaders = GameObject.FindGameObjectsWithTag("Invader");
+        playerMissiles = GameObject.FindGameObjectsWithTag("PlayerMissile");
+
+        for (var i = 0; i < invaders.Length; i++)
+        {
+            Destroy(invaders[i]);
+        }
+
+        for (var i = 0; i < playerMissiles.Length; i++)
+        {
+            Destroy(playerMissiles[i]);
         }
     }
 

@@ -22,7 +22,7 @@ public class Shield : MonoBehaviour
     void Update()
     {
         // If win level, reset grid 
-        if (Global.invadersRemaining == 0)
+        if (Global.resetGrid)
         {
             InstantiateShield();
         }

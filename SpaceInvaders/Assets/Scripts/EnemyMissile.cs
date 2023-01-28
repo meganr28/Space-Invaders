@@ -65,7 +65,7 @@ public class EnemyMissile : MonoBehaviour
             {
                 InvadersGrid.numMissilesFired--;
             }
-            g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
+            //g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
             //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else if (collider.CompareTag("PlayerMissile"))
@@ -77,7 +77,7 @@ public class EnemyMissile : MonoBehaviour
             {
                 PlayerShip.numMissilesFired--;
             }
-            g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
+            //g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
             //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else if (collider.CompareTag("Wall"))
@@ -87,7 +87,7 @@ public class EnemyMissile : MonoBehaviour
             {
                 InvadersGrid.numMissilesFired--;
             }
-            g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
+            //g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
             //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else if (collider.CompareTag("ShieldPiece"))
@@ -101,14 +101,14 @@ public class EnemyMissile : MonoBehaviour
             {
                 InvadersGrid.numMissilesFired--;
             }
-            g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
+            //g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
             //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else
         {
             // if we collided with something else, print to console 
             // what the other thing was 
-            Debug.Log("Collided with " + collider.tag);
+            //Debug.Log("Collided with " + collider.tag);
         }
     }
 }

@@ -113,7 +113,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!114 &-6561049346255099429
 MonoBehaviour:
@@ -130,3 +130,4 @@ MonoBehaviour:
   deathKnell: {fileID: 8300000, guid: e93d5cbd4a12fe540a2b627c99c00b85, type: 3}
   missile: {fileID: 6140054660516247536, guid: a57d31fde325c9d49b531a8d993f5072, type: 3}
   invaderType: 2
+  state: 0

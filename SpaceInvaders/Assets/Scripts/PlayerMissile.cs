@@ -6,12 +6,20 @@ public class PlayerMissile : MonoBehaviour
 {
     public Vector3 thrust;
     public Quaternion direction;
+    public float minX, maxX;
+
+    public int state;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Start alive
+        state = 1;
+        minX = -12f;
+        maxX = 12f;
+
         // travel straight in the z-axis 
-        thrust.z = 600.0f;
+        thrust.z = 1000.0f;
 
         // do not passively decelerate 
         GetComponent<Rigidbody>().drag = 0;
@@ -30,30 +38,48 @@ public class PlayerMissile : MonoBehaviour
         Vector3 currentPosition = gameObject.transform.position;
         if (currentPosition.z > 10.5)
         {
-            Destroy(gameObject);
+            // Turn on drag
+            GetComponent<Rigidbody>().drag = 1;
+            GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionX;
+
+            //Destroy(gameObject);
+
             if (PlayerShip.numMissilesFired > 0)
             {
                 PlayerShip.numMissilesFired--;
             }
+        }
+
+        if (currentPosition.z < -10.5)
+        {
+            Destroy(gameObject);
+        }
+
+        if (currentPosition.x < minX || currentPosition.x > maxX)
+        {
+            // Let invader fall down the sides
+            GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionZ;
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
         Collider collider = collision.collider;
+        GameObject obj = GameObject.Find("GlobalObject");
+        Global g = obj.GetComponent<Global>();
         if (collider.CompareTag("Invader"))
         {
+            // Get invader component
             Invader invader = collider.gameObject.GetComponent<Invader>();
-            // let the other object handle its own death throes 
-            invader.Die();
-            // Increment the number of invaders killed
-            if (Global.invadersRemaining > 0)
+
+            // If invader hit is alive and bullet is alive, kill invader
+            if (invader.state == 1 && state == 1)
             {
-                Global.invadersRemaining--;
+                invader.Die();
+                state = 0;
+                //Destroy(gameObject);
             }
-            Debug.Log("Invaders remaining: " + Global.invadersRemaining);
-            // Destroy the Missile that collided with the Invader 
-            Destroy(gameObject);
+
             if (PlayerShip.numMissilesFired > 0)
             {
                 PlayerShip.numMissilesFired--;
@@ -73,7 +99,6 @@ public class PlayerMissile : MonoBehaviour
         }
         else if (collider.CompareTag("ShieldPiece"))
         {
-            Debug.Log("collided with shield piece");
             ShieldPiece shieldPiece = collider.gameObject.GetComponent<ShieldPiece>();
             // let the other object handle its own death throes 
             shieldPiece.Die();
@@ -84,11 +109,22 @@ public class PlayerMissile : MonoBehaviour
                 PlayerShip.numMissilesFired--;
             }
         }
+        else if (collider.CompareTag("Wall"))
+        {
+            // If player missile collides with ground wall, then set z constraint
+            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+            rb.constraints |= RigidbodyConstraints.FreezePositionZ;
+            rb.constraints &= ~RigidbodyConstraints.FreezePositionX;
+            if (PlayerShip.numMissilesFired > 0)
+            {
+                PlayerShip.numMissilesFired--;
+            }
+        }
         else
         {
             // if we collided with something else, print to console 
             // what the other thing was 
-            Debug.Log("Collided with " + collider.tag);
+            //Debug.Log("Collided with " + collider.tag);
         }
     }
 
