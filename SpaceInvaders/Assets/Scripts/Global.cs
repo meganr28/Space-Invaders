@@ -32,6 +32,7 @@ public class Global : MonoBehaviour
         score = 0;
         level = 0;
         lives = 3;
+        ResetStaticVariables();
     }
 
     // Update is called once per frame
@@ -51,6 +52,11 @@ public class Global : MonoBehaviour
         {
             frontCamera.SetActive(false);
             topCamera.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("StartScene");
         }
     }
 
@@ -153,5 +159,14 @@ public class Global : MonoBehaviour
     {
         Global.isGameOver = true;
         StartCoroutine(PauseGame(5.0f));
+    }
+
+    public void ResetStaticVariables()
+    {
+        levelWon = false;
+        resetGrid = false;
+        isGameOver = false;
+        isGamePaused = false;
+        invadersRemaining = 9;
     }
 }

@@ -21,6 +21,7 @@ public class MysteryShip : MonoBehaviour
         state = 1;
         minX = -12f;
         maxX = 12f;
+        playerShots = 0;
 
         flyingSound = GetComponent<AudioSource>();
         shipSpeed = 3.0f;

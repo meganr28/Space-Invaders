@@ -18,6 +18,7 @@ public class PlayerShip : MonoBehaviour
         playerSpeed = 7.0f;
         minX = -11.5f;
         maxX = 11.5f;
+        numMissilesFired = 0;
     }
 
     // Update is called once per frame

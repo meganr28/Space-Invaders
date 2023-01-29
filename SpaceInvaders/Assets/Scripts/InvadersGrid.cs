@@ -32,6 +32,7 @@ public class InvadersGrid : MonoBehaviour
         invaderSpeed = 9.0f;
         minX = -11.5f;
         maxX = 11.5f;
+        numMissilesFired = 0;
 
         // Fire missiles at certain intervals
         if (!Global.isGamePaused)

@@ -19,5 +19,11 @@ public class StartGame : MonoBehaviour
         {
             SceneManager.LoadScene("GameplayScene");
         }
+
+        // If 'esc' is pressed, then exit application
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }
