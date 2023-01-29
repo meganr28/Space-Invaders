@@ -43,7 +43,7 @@ public class Invader : MonoBehaviour
         if (collider.CompareTag("ShieldPiece"))
         {
             ShieldPiece shieldPiece = collider.gameObject.GetComponent<ShieldPiece>();
-            shieldPiece.Die();
+            //shieldPiece.Die();
         }
         else if (collider.CompareTag("PlayerShip"))
         {
@@ -72,6 +72,7 @@ public class Invader : MonoBehaviour
     public void Die()
     {
         state = 0;
+        transform.parent = null;
 
         // Play explosion clip
         AudioSource.PlayClipAtPoint(deathKnell, Camera.allCameras[0].transform.position);

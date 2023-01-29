@@ -71,6 +71,7 @@ public class EnemyMissile : MonoBehaviour
             {
                 g.lives--;
                 player.Die();
+                Destroy(gameObject);
 
                 // If no more lives, then game over
                 if (g.lives == 0)
@@ -85,8 +86,11 @@ public class EnemyMissile : MonoBehaviour
                 }
             }
 
-            Destroy(gameObject);
-            //Deactivate();
+            if (state == 0)
+            {
+                Deactivate();
+            }
+
             if (InvadersGrid.numMissilesFired > 0)
             {
                 InvadersGrid.numMissilesFired--;

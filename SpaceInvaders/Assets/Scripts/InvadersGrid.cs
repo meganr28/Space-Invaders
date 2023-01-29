@@ -29,34 +29,34 @@ public class InvadersGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        invaderSpeed = 1.0f;
+        invaderSpeed = 9.0f;
         minX = -11.5f;
         maxX = 11.5f;
 
         // Fire missiles at certain intervals
         if (!Global.isGamePaused)
         {
-            InvokeRepeating("FireMissiles", 1f, 0.5f);
+            InvokeRepeating("FireMissiles", 1f, 1f);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //// Invaders should always move in one of the horizontal directions
-        //this.transform.position += direction * invaderSpeed * Time.deltaTime;
+        // Invaders should always move in one of the horizontal directions
+        this.transform.position += direction * invaderSpeed * Time.deltaTime;
 
-        //// Loop through each child (invader) transform
-        //foreach (Transform invader in this.transform)
-        //{
-        //    // If invaders have reached either edge, flip direction and decrement row
-        //    if (direction == Vector3.left && invader.position.x < minX || direction == Vector3.right && invader.position.x > maxX)
-        //    {
-        //        //Debug.Log("Decrementing step");
-        //        direction *= -1.0f;
-        //        this.transform.position -= Vector3.forward * decrementStep;
-        //    }
-        //}
+        // Loop through each child (invader) transform
+        foreach (Transform invader in this.transform)
+        {
+            // If invaders have reached either edge, flip direction and decrement row
+            if (direction == Vector3.left && invader.position.x < minX || direction == Vector3.right && invader.position.x > maxX)
+            {
+                //Debug.Log("Decrementing step");
+                direction *= -1.0f;
+                this.transform.position -= Vector3.forward * decrementStep;
+            }
+        }
 
         // If win level, reset grid 
         if (Global.invadersRemaining == 0 && !Global.isGameOver)
@@ -74,11 +74,8 @@ public class InvadersGrid : MonoBehaviour
             Global.resetGrid = false;
         }
 
-        //// Increase speed after certain number of invaders remaining
-        //if (Global.invadersRemaining <= 10)
-        //{
-        //    invaderSpeed = 0.85f / (Global.invadersRemaining / 10.0f);
-        //}
+        // Increase speed depending on number of invaders remaining
+        invaderSpeed = 9.0f / Global.invadersRemaining;
     }
 
     public void InstantiateGrid()
@@ -132,7 +129,7 @@ public class InvadersGrid : MonoBehaviour
             bool invaderInFront = Physics.Raycast(invader.position, invader.TransformDirection(Vector3.back), out hit, Mathf.Infinity, layerMask);
             // If random number is within probability, then fire missile
             float xi = Random.Range(0.0f, 1.0f);
-            if (!invaderInFront && numMissilesFired < 3 && xi < (1.0f / Global.invadersRemaining))
+            if (!invaderInFront && numMissilesFired < 3 && xi < (1.0f / (2.0f * Global.invadersRemaining)))
             {
                 numMissilesFired++;
                 Debug.Log("Enemy Missile fired! Num Missiles Fired: " + numMissilesFired);
@@ -151,7 +148,7 @@ public class InvadersGrid : MonoBehaviour
     {
         Debug.Log("Resetting grid");
         direction = Vector3.right;
-        invaderSpeed = 1.0f;
+        invaderSpeed = 9.0f;
         numMissilesFired = 0;
 
         InstantiateGrid();

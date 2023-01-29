@@ -80,6 +80,7 @@ public class Global : MonoBehaviour
         invaders = GameObject.FindGameObjectsWithTag("Invader");
         mysteryShips = GameObject.FindGameObjectsWithTag("MysteryShip");
         playerMissiles = GameObject.FindGameObjectsWithTag("PlayerMissile");
+        enemyMissiles = GameObject.FindGameObjectsWithTag("EnemyMissile");
 
         for (var i = 0; i < invaders.Length; i++)
         {
@@ -94,6 +95,11 @@ public class Global : MonoBehaviour
         for (var i = 0; i < playerMissiles.Length; i++)
         {
             Destroy(playerMissiles[i]);
+        }
+
+        for (var i = 0; i < enemyMissiles.Length; i++)
+        {
+            Destroy(enemyMissiles[i]);
         }
     }
 
