@@ -14,7 +14,9 @@ public class Global : MonoBehaviour
     public static bool resetGrid = false;
     public static bool isGameOver = false;
     public static bool isGamePaused = false;
+    public static bool firePlayerMissile = true;
     public static int invadersRemaining = 9;
+    public static int missilesRemaining = 20;
     public int score;
     public int hiScore;
     public int level;
@@ -58,6 +60,15 @@ public class Global : MonoBehaviour
         {
             SceneManager.LoadScene("StartScene");
         }
+
+        if (missilesRemaining <= 0)
+        {
+            firePlayerMissile = false;
+        }
+        else
+        {
+            firePlayerMissile = true;
+        }
     }
 
     public void NextLevel()
@@ -66,6 +77,7 @@ public class Global : MonoBehaviour
         // Reset variables
         levelWon = true;
         invadersRemaining = 9;
+        missilesRemaining = 20;
         lives = 3;
         level = (level + 1) % 5;
 
@@ -168,5 +180,6 @@ public class Global : MonoBehaviour
         isGameOver = false;
         isGamePaused = false;
         invadersRemaining = 9;
+        missilesRemaining = 20;
     }
 }

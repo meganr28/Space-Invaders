@@ -41,7 +41,7 @@ public class PlayerShip : MonoBehaviour
             gameObject.transform.position = updatedPosition;
 
             // Handle missile firing
-            if (Input.GetKeyDown("space"))    
+            if (Input.GetKeyDown("space") && Global.firePlayerMissile)    
             {
                 Debug.Log("Missile fired!");    
 
@@ -58,6 +58,10 @@ public class PlayerShip : MonoBehaviour
                 m.direction = rot;
 
                 numMissilesFired++;
+                if (Global.missilesRemaining > 0)
+                {
+                    Global.missilesRemaining--;
+                }
 
                 // Increment total shots taken
                 MysteryShip.playerShots++;

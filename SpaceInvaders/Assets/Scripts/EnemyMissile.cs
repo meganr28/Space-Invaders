@@ -146,4 +146,9 @@ public class EnemyMissile : MonoBehaviour
         Renderer renderer = gameObject.GetComponent<Renderer>();
         renderer.material.SetColor("_Color", Color.gray);
     }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
 }

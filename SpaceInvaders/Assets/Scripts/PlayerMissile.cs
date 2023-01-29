@@ -18,8 +18,9 @@ public class PlayerMissile : MonoBehaviour
         minX = -12f;
         maxX = 12f;
 
-        // travel straight in the z-axis 
+        // travel straight in the z-axis, add offset to x to prevent missiles from stacking
         thrust.z = 1000.0f;
+        thrust.x = 20.0f * Random.Range(0.0f, 1.0f);
 
         // do not passively decelerate 
         GetComponent<Rigidbody>().drag = 0;
@@ -146,5 +147,10 @@ public class PlayerMissile : MonoBehaviour
 
         Renderer renderer = gameObject.GetComponent<Renderer>();
         renderer.material.SetColor("_Color", Color.gray);
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

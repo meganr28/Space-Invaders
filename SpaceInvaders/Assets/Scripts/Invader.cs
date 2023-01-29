@@ -101,7 +101,10 @@ public class Invader : MonoBehaviour
             Global.invadersRemaining--;
         }
         Debug.Log("Invaders remaining: " + Global.invadersRemaining);
+    }
 
-        //Destroy(gameObject);
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
