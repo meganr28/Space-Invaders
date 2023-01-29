@@ -21,6 +21,7 @@ public class Global : MonoBehaviour
     public int lives;
 
     public GameObject[] invaders;
+    public GameObject[] mysteryShips;
     public GameObject[] playerMissiles;
     public GameObject[] enemyMissiles;
 
@@ -77,11 +78,17 @@ public class Global : MonoBehaviour
 
         // Clear any remaining debris on the screen
         invaders = GameObject.FindGameObjectsWithTag("Invader");
+        mysteryShips = GameObject.FindGameObjectsWithTag("MysteryShip");
         playerMissiles = GameObject.FindGameObjectsWithTag("PlayerMissile");
 
         for (var i = 0; i < invaders.Length; i++)
         {
             Destroy(invaders[i]);
+        }
+
+        for (var i = 0; i < mysteryShips.Length; i++)
+        {
+            Destroy(mysteryShips[i]);
         }
 
         for (var i = 0; i < playerMissiles.Length; i++)

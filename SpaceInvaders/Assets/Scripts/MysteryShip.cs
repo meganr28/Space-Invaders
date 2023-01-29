@@ -6,14 +6,23 @@ public class MysteryShip : MonoBehaviour
 {
     public AudioClip deathKnell;
     AudioSource flyingSound;
-    public int pointValue;
     public float shipSpeed;
+    public float minX, maxX;
+
+    public int state; // 0 = dead, 1 = alive
+
+    public static int playerShots = 0;
+    public int[] pointValues = { 100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100, 50 };
 
     // Start is called before the first frame update
     void Start()
     {
+        // Start alive
+        state = 1;
+        minX = -12f;
+        maxX = 12f;
+
         flyingSound = GetComponent<AudioSource>();
-        pointValue = 200;
         shipSpeed = 3.0f;
 
         flyingSound.Play();
@@ -22,22 +31,25 @@ public class MysteryShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Global.isGamePaused)
+        if (!Global.isGamePaused && !Global.levelWon)
         {
             Vector3 updatedPosition = gameObject.transform.position;
             //updatedPosition.x += shipSpeed;
             updatedPosition += Vector3.right * shipSpeed * Time.deltaTime;
 
-            if (shipSpeed < 0 && updatedPosition.x < -12.0f || shipSpeed > 0 && updatedPosition.x > 12.0f)
+            if (shipSpeed < 0 && updatedPosition.x < minX || shipSpeed > 0 && updatedPosition.x > maxX)
             {
-                Destroy(gameObject);
+                if (state == 1)
+                {
+                    Destroy(gameObject);
+                }
             }
             else
             {
                 gameObject.transform.position = updatedPosition;
             }
 
-            // If win level, reset grid 
+            // If win level, reset ship speed 
             if (Global.invadersRemaining == 0)
             {
                 ResetShip();
@@ -49,24 +61,38 @@ public class MysteryShip : MonoBehaviour
         }
     }
 
-    public void UpdateSpeed()
-    {
-        shipSpeed *= -1.0f;
-    }
-
     public void ResetShip()
     {
-        shipSpeed = 0.05f;
+        shipSpeed = 3.0f;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Collider collider = collision.collider;
+        if (collider.CompareTag("ShieldPiece"))
+        {
+            ShieldPiece shieldPiece = collider.gameObject.GetComponent<ShieldPiece>();
+            shieldPiece.Die();
+        }
     }
 
     public void Die()
     {
+        state = 0;
+
         // Play explosion clip
         AudioSource.PlayClipAtPoint(deathKnell, Camera.allCameras[0].transform.position);
 
         GameObject obj = GameObject.Find("GlobalObject");
         Global g = obj.GetComponent<Global>();
-        g.score += pointValue;
-        Destroy(gameObject);
+        g.score += pointValues[playerShots % 15];
+
+        // Make ship fall to the ground
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionX;
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionZ;
+        rb.useGravity = true;
+
+        //Destroy(gameObject);
     }
 }

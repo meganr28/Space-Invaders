@@ -56,6 +56,9 @@ public class PlayerShip : MonoBehaviour
                 m.direction = rot;
 
                 numMissilesFired++;
+
+                // Increment total shots taken
+                MysteryShip.playerShots++;
             }
         }
     }

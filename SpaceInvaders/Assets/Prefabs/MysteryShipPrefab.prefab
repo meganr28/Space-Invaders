@@ -115,6 +115,9 @@ MonoBehaviour:
   deathKnell: {fileID: 8300000, guid: e93d5cbd4a12fe540a2b627c99c00b85, type: 3}
   pointValue: 0
   shipSpeed: 0
+  minX: 0
+  maxX: 0
+  state: 0
 --- !u!54 &6639325909380334776
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -129,7 +132,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!82 &-3658528588573938654
 AudioSource:

@@ -88,10 +88,16 @@ public class PlayerMissile : MonoBehaviour
         else if (collider.CompareTag("MysteryShip"))
         {
             MysteryShip ship = collider.gameObject.GetComponent<MysteryShip>();
-            // let the other object handle its own death throes 
-            ship.Die();
+
+            // if mystery ship hit is alive and bullet is alive, kill ship
+            if (ship.state == 1 && state == 1)
+            { 
+                ship.Die();
+                state = 0;
+            }
+
             // Destroy the Missile that collided with the MysteryShip 
-            Destroy(gameObject);
+            //Destroy(gameObject);
             if (PlayerShip.numMissilesFired > 0)
             {
                 PlayerShip.numMissilesFired--;
