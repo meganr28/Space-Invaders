@@ -36,7 +36,7 @@ public class InvadersGrid : MonoBehaviour
         // Fire missiles at certain intervals
         if (!Global.isGamePaused)
         {
-            //InvokeRepeating("FireMissiles", 1f, 0.5f);
+            InvokeRepeating("FireMissiles", 1f, 0.5f);
         }
     }
 

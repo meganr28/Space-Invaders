@@ -28,7 +28,7 @@ public class Global : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        respawnPosition = new Vector3(-9.0f, 0.0f, -7.5f);
+        respawnPosition = new Vector3(-9.0f, 0.0f, -8.3f);
         score = 0;
         level = 0;
         lives = 3;

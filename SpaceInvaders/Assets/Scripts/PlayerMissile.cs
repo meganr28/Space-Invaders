@@ -67,6 +67,7 @@ public class PlayerMissile : MonoBehaviour
         Collider collider = collision.collider;
         GameObject obj = GameObject.Find("GlobalObject");
         Global g = obj.GetComponent<Global>();
+
         if (collider.CompareTag("Invader"))
         {
             // Get invader component
@@ -76,8 +77,7 @@ public class PlayerMissile : MonoBehaviour
             if (invader.state == 1 && state == 1)
             {
                 invader.Die();
-                state = 0;
-                //Destroy(gameObject);
+                Deactivate();
             }
 
             if (PlayerShip.numMissilesFired > 0)
@@ -93,7 +93,7 @@ public class PlayerMissile : MonoBehaviour
             if (ship.state == 1 && state == 1)
             { 
                 ship.Die();
-                state = 0;
+                Deactivate();
             }
 
             // Destroy the Missile that collided with the MysteryShip 
@@ -125,6 +125,11 @@ public class PlayerMissile : MonoBehaviour
             {
                 PlayerShip.numMissilesFired--;
             }
+            Deactivate();
+        }
+        else if (collider.CompareTag("PlayerMissile"))
+        {
+            Deactivate();
         }
         else
         {
@@ -134,8 +139,12 @@ public class PlayerMissile : MonoBehaviour
         }
     }
 
-    public void Die()
+    public void Deactivate()
     {
-        Destroy(gameObject);
+        state = 0;
+        //Destroy(gameObject);
+
+        Renderer renderer = gameObject.GetComponent<Renderer>();
+        renderer.material.SetColor("_Color", Color.gray);
     }
 }

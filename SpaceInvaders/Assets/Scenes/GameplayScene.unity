@@ -670,6 +670,7 @@ MonoBehaviour:
   level: 0
   lives: 0
   invaders: []
+  mysteryShips: []
   playerMissiles: []
   enemyMissiles: []
 --- !u!4 &693837887
@@ -2855,10 +2856,6 @@ PrefabInstance:
     - target: {fileID: 5056349133022796026, guid: a4b3784f2ecd53147b67aafe9037cb5f, type: 3}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056349133022796026, guid: a4b3784f2ecd53147b67aafe9037cb5f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5056349133022796026, guid: a4b3784f2ecd53147b67aafe9037cb5f, type: 3}
       propertyPath: m_LocalPosition.x

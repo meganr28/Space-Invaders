@@ -6,10 +6,18 @@ public class EnemyMissile : MonoBehaviour
 {
     public Vector3 thrust;
     public Quaternion direction;
+    public float minX, maxX;
+
+    public int state;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Start alive
+        state = 1;
+        minX = -12f;
+        maxX = 12f;
+
         // travel down in the z-axis 
         thrust.z = -600.0f;
 
@@ -27,7 +35,18 @@ public class EnemyMissile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 currentPosition = gameObject.transform.position;
+
+        if (currentPosition.z < -10.5)
+        {
+            Destroy(gameObject);
+        }
+
+        if (currentPosition.x < minX || currentPosition.x > maxX)
+        {
+            // Let invader fall down the sides
+            GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionZ;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -35,6 +54,12 @@ public class EnemyMissile : MonoBehaviour
         Collider collider = collision.collider;
         GameObject obj = GameObject.Find("GlobalObject");
         Global g = obj.GetComponent<Global>();
+
+        if (!collider.CompareTag("PlayerShip"))
+        {
+            Deactivate();
+        }
+
         if (collider.CompareTag("PlayerShip"))
         {
             PlayerShip player = collider.gameObject.GetComponent<PlayerShip>();
@@ -42,7 +67,7 @@ public class EnemyMissile : MonoBehaviour
             // Update lives counter
 
             // Either die or respawn player
-            if (g.lives > 0)
+            if (g.lives > 0 && state == 1)
             {
                 g.lives--;
                 player.Die();
@@ -61,34 +86,34 @@ public class EnemyMissile : MonoBehaviour
             }
 
             Destroy(gameObject);
+            //Deactivate();
             if (InvadersGrid.numMissilesFired > 0)
             {
                 InvadersGrid.numMissilesFired--;
             }
-            //g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
-            //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else if (collider.CompareTag("PlayerMissile"))
         {
             PlayerMissile playerMissile = collider.gameObject.GetComponent<PlayerMissile>();
-            playerMissile.Die();
-            Destroy(gameObject);
+            playerMissile.Deactivate();
+            //Destroy(gameObject);
             if (PlayerShip.numMissilesFired > 0)
             {
                 PlayerShip.numMissilesFired--;
             }
-            //g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
-            //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else if (collider.CompareTag("Wall"))
         {
-            Destroy(gameObject);
+            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+            rb.constraints |= RigidbodyConstraints.FreezePositionZ;
+            rb.constraints &= ~RigidbodyConstraints.FreezePositionX;
+
+            //Destroy(gameObject);
+            Deactivate();
             if (InvadersGrid.numMissilesFired > 0)
             {
                 InvadersGrid.numMissilesFired--;
             }
-            //g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
-            //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else if (collider.CompareTag("ShieldPiece"))
         {
@@ -101,8 +126,6 @@ public class EnemyMissile : MonoBehaviour
             {
                 InvadersGrid.numMissilesFired--;
             }
-            //g.activeMissiles.RemoveAt(g.activeMissiles.Count - 1);
-            //Debug.Log("num active missiles: " + g.activeMissiles.Count);
         }
         else
         {
@@ -110,5 +133,13 @@ public class EnemyMissile : MonoBehaviour
             // what the other thing was 
             //Debug.Log("Collided with " + collider.tag);
         }
+    }
+
+    public void Deactivate()
+    {
+        state = 0;
+
+        Renderer renderer = gameObject.GetComponent<Renderer>();
+        renderer.material.SetColor("_Color", Color.gray);
     }
 }
