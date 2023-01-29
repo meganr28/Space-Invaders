@@ -7,6 +7,7 @@ public class PlayerShip : MonoBehaviour
     public static int numMissilesFired = 0;
 
     public AudioClip deathKnell;
+    public GameObject deathExplosion;
     public GameObject missile;
     public float playerSpeed;
     public float minX, maxX;
@@ -65,6 +66,9 @@ public class PlayerShip : MonoBehaviour
 
     public void Die()
     {
+        // Instantiate particle effect
+        Instantiate(deathExplosion, gameObject.transform.position, Quaternion.AngleAxis(-90, Vector3.right));
+
         // Play explosion clip
         AudioSource.PlayClipAtPoint(deathKnell, Camera.allCameras[0].transform.position);
 

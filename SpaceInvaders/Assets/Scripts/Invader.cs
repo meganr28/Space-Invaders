@@ -5,6 +5,7 @@ using UnityEngine;
 public class Invader : MonoBehaviour
 {
     public AudioClip deathKnell;
+    public GameObject deathExplosion;
     public GameObject missile;
     public int invaderType; // small, medium, large
     public float minX, maxX;
@@ -73,6 +74,9 @@ public class Invader : MonoBehaviour
     {
         state = 0;
         transform.parent = null;
+
+        // Instantiate particle effect
+        Instantiate(deathExplosion, gameObject.transform.position, Quaternion.AngleAxis(-90, Vector3.right));
 
         // Play explosion clip
         AudioSource.PlayClipAtPoint(deathKnell, Camera.allCameras[0].transform.position);
