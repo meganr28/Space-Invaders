@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerShip : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class PlayerShip : MonoBehaviour
     public GameObject missile;
     public float playerSpeed;
     public float minX, maxX;
+    public int numStarsCollected;
+
+    public PostProcessVolume postProcessVolume;
+    public Bloom bloom;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +24,9 @@ public class PlayerShip : MonoBehaviour
         minX = -11.5f;
         maxX = 11.5f;
         numMissilesFired = 0;
+
+        postProcessVolume = gameObject.GetComponent<PostProcessVolume>();
+        postProcessVolume.profile.TryGetSettings(out bloom);
     }
 
     // Update is called once per frame
@@ -28,6 +36,7 @@ public class PlayerShip : MonoBehaviour
         {
             GameObject globalObj = GameObject.Find("GlobalObject");
             Global g = globalObj.GetComponent<Global>();
+            Renderer renderer = GetComponent<Renderer>();
             Vector3 updatedPosition = gameObject.transform.position; // gameObject refers to object this is currently attached to
 
             // Only move if within boundaries
@@ -68,6 +77,32 @@ public class PlayerShip : MonoBehaviour
                 // Increment total shots taken
                 MysteryShip.playerShots++;
             }
+
+            // Handle health "glow" if you collect stardust
+            if (numStarsCollected == 3)
+            {
+                renderer.material.EnableKeyword("_EMISSION");
+                renderer.material.SetColor("_EmissionColor", Color.yellow);
+                //bloom.enabled.value = true;
+                //bloom.intensity.value = 4.0f * numStarsCollected;
+            }
+            else
+            {
+                renderer.material.DisableKeyword("_EMISSION");
+                renderer.material.SetColor("_EmissionColor", Color.black);
+                //bloom.enabled.value = false;
+                //bloom.intensity.value = 0.0f;
+            }
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Collider collider = collision.collider;
+        if (collider.CompareTag("Stardust"))
+        {
+            numStarsCollected++;
+            Debug.Log("Num Stars: " + numStarsCollected);
         }
     }
 

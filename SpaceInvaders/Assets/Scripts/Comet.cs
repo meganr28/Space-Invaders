@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Comet : MonoBehaviour
 {
+    public GameObject stardustPrefab;
     public AudioClip deathKnell;
-    //AudioSource flyingSound;
+    AudioSource flyingSound;
     public float cometSpeed;
     public float minX, maxX;
     public float timer;
     public float firePeriod;
+    public float numStarsSpawned;
+    public Vector3 lastSpawnPosition;
 
     public GameObject[] invaders;
     public GameObject[] mysteryShips;
@@ -23,11 +26,13 @@ public class Comet : MonoBehaviour
         maxX = 12f;
         timer = 0;
         firePeriod = 5.0f;
+        numStarsSpawned = 0;
+        lastSpawnPosition = gameObject.transform.position;
 
-        //flyingSound = GetComponent<AudioSource>();
+        flyingSound = GetComponent<AudioSource>();
         cometSpeed = 8.0f;
 
-        //flyingSound.Play();
+        flyingSound.Play();
     }
 
     // Update is called once per frame
@@ -57,6 +62,22 @@ public class Comet : MonoBehaviour
                 gameObject.transform.position = updatedPosition;
             }
 
+            // Spawn stardust three times
+            float xi = Random.Range(0.0f, 1.0f);
+            Vector3 dist = gameObject.transform.position - lastSpawnPosition;
+            if (xi < 0.15f && numStarsSpawned < 3 && dist.x > 5)
+            {
+                numStarsSpawned++;
+                lastSpawnPosition = gameObject.transform.position;
+                //Debug.Log("Enemy Missile fired! Num Missiles Fired: " + numMissilesFired);
+
+                Vector3 spawnPos = gameObject.transform.position;
+                spawnPos.z -= 0.75f; // add slight offset so that missile spawns at bottom of invader
+
+                // instantiate the Missile
+                GameObject obj = Instantiate(stardustPrefab, spawnPos, Quaternion.identity) as GameObject;
+            }
+
             // If win level, reset ship speed 
             if (Global.invadersRemaining == 0)
             {
@@ -65,7 +86,7 @@ public class Comet : MonoBehaviour
         }
         else
         {
-            //flyingSound.Stop();
+            flyingSound.Stop();
         }
     }
 
@@ -123,9 +144,13 @@ public class Comet : MonoBehaviour
             }
         }
 
-        //for (var i = 0; i < enemyMissiles.Length; i++)
-        //{
-        //    Destroy(enemyMissiles[i]);
-        //}
+        for (var i = 0; i < enemyMissiles.Length; i++)
+        {
+            EnemyMissile enemyMissile = enemyMissiles[i].GetComponent<EnemyMissile>();
+            if (enemyMissile.state == 0)
+            {
+                Destroy(enemyMissiles[i]);
+            }
+        }
     }
 }

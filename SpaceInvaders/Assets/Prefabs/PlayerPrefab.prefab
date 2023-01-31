@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 5056349133022796023}
   - component: {fileID: 5056349133022796027}
   - component: {fileID: 4080476505739591968}
-  m_Layer: 0
+  - component: {fileID: 1113119538}
+  m_Layer: 14
   m_Name: PlayerPrefab
   m_TagString: PlayerShip
   m_Icon: {fileID: 0}
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 54436314fd4d00d499af20f9eb312443, type: 2}
+  - {fileID: 2100000, guid: b9e7e2df10260c54ca7130d09a28648b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,6 +118,9 @@ MonoBehaviour:
   playerSpeed: 0
   minX: 0
   maxX: 0
+  numStarsCollected: 0
+  postProcessVolume: {fileID: 0}
+  bloom: {fileID: 0}
 --- !u!54 &4080476505739591968
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -133,3 +137,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
+--- !u!114 &1113119538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5056349133022796022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: d46c72be171666247b18ac95a6091899, type: 2}
+  isGlobal: 0
+  blendDistance: 10
+  weight: 1
+  priority: 0

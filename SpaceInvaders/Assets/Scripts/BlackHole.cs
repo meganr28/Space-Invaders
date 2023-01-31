@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BlackHole : MonoBehaviour
 {
+    AudioSource flyingSound;
     public int numMissilesReceived;
     public float blackHoleSpeed;
     public float minX, maxX;
@@ -15,6 +16,9 @@ public class BlackHole : MonoBehaviour
         blackHoleSpeed = 3.0f;
         minX = -12f;
         maxX = 12f;
+
+        flyingSound = GetComponent<AudioSource>();
+        flyingSound.Play();
     }
 
     // Update is called once per frame
@@ -44,7 +48,7 @@ public class BlackHole : MonoBehaviour
         }
         else
         {
-            //flyingSound.Stop();
+            flyingSound.Stop();
         }
     }
 
