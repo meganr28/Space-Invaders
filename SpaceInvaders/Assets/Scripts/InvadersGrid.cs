@@ -18,8 +18,8 @@ public class InvadersGrid : MonoBehaviour
     private Vector3 direction = Vector3.right;
     private float decrementStep = 0.5f;
     private float spacing = 1.5f;
-    private int rows = 3;
-    private int columns = 3;
+    private int rows = 5;
+    private int columns = 11;
 
     void Awake()
     {
@@ -29,7 +29,7 @@ public class InvadersGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        invaderSpeed = 9.0f;
+        invaderSpeed = 55.0f;
         minX = -11.5f;
         maxX = 11.5f;
         numMissilesFired = 0;
@@ -56,6 +56,8 @@ public class InvadersGrid : MonoBehaviour
                 //Debug.Log("Decrementing step");
                 direction *= -1.0f;
                 this.transform.position -= Vector3.forward * decrementStep;
+                Global.gridZ = this.transform.position.z;
+                Debug.Log("Grid Z: " + Global.gridZ);
             }
         }
 
@@ -76,7 +78,15 @@ public class InvadersGrid : MonoBehaviour
         }
 
         // Increase speed depending on number of invaders remaining
-        invaderSpeed = 9.0f / Global.invadersRemaining;
+
+        if (!Global.timeWarpMode)
+        {
+            invaderSpeed = 40.0f / Global.invadersRemaining;
+        }
+        else
+        {
+            invaderSpeed = 0.25f;
+        }
     }
 
     public void InstantiateGrid()
@@ -130,7 +140,7 @@ public class InvadersGrid : MonoBehaviour
             bool invaderInFront = Physics.Raycast(invader.position, invader.TransformDirection(Vector3.back), out hit, Mathf.Infinity, layerMask);
             // If random number is within probability, then fire missile
             float xi = Random.Range(0.0f, 1.0f);
-            if (!invaderInFront && numMissilesFired < 3 && xi < (1.0f / (2.0f * Global.invadersRemaining)))
+            if (!invaderInFront && numMissilesFired < 3 && xi < (1.0f / Global.invadersRemaining))
             {
                 numMissilesFired++;
                 Debug.Log("Enemy Missile fired! Num Missiles Fired: " + numMissilesFired);
@@ -149,7 +159,7 @@ public class InvadersGrid : MonoBehaviour
     {
         Debug.Log("Resetting grid");
         direction = Vector3.right;
-        invaderSpeed = 9.0f;
+        invaderSpeed = 55.0f;
         numMissilesFired = 0;
 
         InstantiateGrid();

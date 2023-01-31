@@ -15,12 +15,16 @@ public class Global : MonoBehaviour
     public static bool isGameOver = false;
     public static bool isGamePaused = false;
     public static bool firePlayerMissile = true;
-    public static int invadersRemaining = 9;
+    public static bool timeWarpMode = false;
+    public static int invadersRemaining = 55;
     public static int missilesRemaining = 20;
+    public static int timeWarpsGranted = 0;
+    public static float gridZ = 3;
     public int score;
     public int hiScore;
     public int level;
     public int lives;
+    public bool infiniteMissiles = false;
 
     public GameObject[] invaders;
     public GameObject[] mysteryShips;
@@ -61,6 +65,15 @@ public class Global : MonoBehaviour
             SceneManager.LoadScene("StartScene");
         }
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (timeWarpsGranted > 0)
+            {
+                timeWarpsGranted--;
+                StartCoroutine(TimeWarp(10.0f));
+            }
+        }
+
         if (missilesRemaining <= 0)
         {
             firePlayerMissile = false;
@@ -76,7 +89,7 @@ public class Global : MonoBehaviour
         Debug.Log("CHANGING LEVEL");
         // Reset variables
         levelWon = true;
-        invadersRemaining = 9;
+        invadersRemaining = 55;
         missilesRemaining = 20;
         lives = 3;
         level = (level + 1) % 5;
@@ -125,6 +138,20 @@ public class Global : MonoBehaviour
     {
         // Pause game and instantiate player at different position
         StartCoroutine(PauseGameLife(3.0f));
+    }
+
+    public IEnumerator TimeWarp(float warpDuration)
+    {
+        Debug.Log("In Pause Lost Life");
+        // Time warp for 10 seconds
+        timeWarpMode = true;
+        float timeWarpEndTime = Time.realtimeSinceStartup + warpDuration;
+        while (Time.realtimeSinceStartup < timeWarpEndTime)
+        {
+            yield return 0;
+        }
+        // Stop time warp and restore everything to normal speed
+        timeWarpMode = false;
     }
 
     public IEnumerator PauseGameLife(float pauseDuration)
@@ -179,7 +206,21 @@ public class Global : MonoBehaviour
         resetGrid = false;
         isGameOver = false;
         isGamePaused = false;
-        invadersRemaining = 9;
+        invadersRemaining = 55;
         missilesRemaining = 20;
+    }
+
+    public void FireInfinite()
+    {
+        infiniteMissiles = true;
+        // Start coroutine that let's player fire infinitely for 5 seconds
+        // Then turns off infinite missiles
+        Invoke("SetInfiniteFalse", 5.0f);
+    }
+
+    public void SetInfiniteFalse()
+    {
+        Debug.Log("SETTING INFINITE TO FALSE");
+        infiniteMissiles = false;
     }
 }

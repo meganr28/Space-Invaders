@@ -35,7 +35,15 @@ public class MysteryShip : MonoBehaviour
         if (!Global.isGamePaused && !Global.levelWon)
         {
             Vector3 updatedPosition = gameObject.transform.position;
-            //updatedPosition.x += shipSpeed;
+
+            if (Global.timeWarpMode)
+            {
+                shipSpeed = 0.35f;
+            }
+            else
+            {
+                shipSpeed = 3.0f;
+            }
             updatedPosition += Vector3.right * shipSpeed * Time.deltaTime;
 
             if (shipSpeed < 0 && updatedPosition.x < minX || shipSpeed > 0 && updatedPosition.x > maxX)
@@ -93,7 +101,10 @@ public class MysteryShip : MonoBehaviour
         rb.constraints &= ~RigidbodyConstraints.FreezePositionX;
         rb.constraints &= ~RigidbodyConstraints.FreezePositionZ;
         rb.useGravity = true;
+    }
 
-        //Destroy(gameObject);
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

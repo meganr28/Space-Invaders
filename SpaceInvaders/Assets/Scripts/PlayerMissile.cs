@@ -104,6 +104,39 @@ public class PlayerMissile : MonoBehaviour
                 PlayerShip.numMissilesFired--;
             }
         }
+        else if (collider.CompareTag("Comet"))
+        {
+            Comet comet = collider.gameObject.GetComponent<Comet>();
+
+            // if mystery ship hit is alive and bullet is alive, kill ship
+            if (state == 1)
+            {
+                comet.Die();
+                Destroy(gameObject);
+            }
+
+            if (PlayerShip.numMissilesFired > 0)
+            {
+                PlayerShip.numMissilesFired--;
+            }
+        }
+        else if (collider.CompareTag("BlackHole"))
+        {
+            BlackHole blackHole = collider.gameObject.GetComponent<BlackHole>();
+
+            // if bullet is alive, shoot at black hole
+            if (state == 1)
+            {
+                blackHole.SetTimeWarp();
+
+                Destroy(gameObject);
+            }
+
+            if (PlayerShip.numMissilesFired > 0)
+            {
+                PlayerShip.numMissilesFired--;
+            }
+        }
         else if (collider.CompareTag("ShieldPiece"))
         {
             ShieldPiece shieldPiece = collider.gameObject.GetComponent<ShieldPiece>();
@@ -130,7 +163,7 @@ public class PlayerMissile : MonoBehaviour
         }
         else if (collider.CompareTag("PlayerMissile"))
         {
-            Deactivate();
+            //Deactivate();
         }
         else
         {
@@ -143,6 +176,7 @@ public class PlayerMissile : MonoBehaviour
     public void Deactivate()
     {
         state = 0;
+        gameObject.layer = LayerMask.NameToLayer("DeadObjects");
         //Destroy(gameObject);
 
         Renderer renderer = gameObject.GetComponent<Renderer>();

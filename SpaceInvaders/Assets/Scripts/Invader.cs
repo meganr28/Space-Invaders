@@ -44,18 +44,25 @@ public class Invader : MonoBehaviour
         if (collider.CompareTag("ShieldPiece"))
         {
             ShieldPiece shieldPiece = collider.gameObject.GetComponent<ShieldPiece>();
-            //shieldPiece.Die();
+            if (state == 1)
+            {
+                shieldPiece.Die();
+            }
         }
         else if (collider.CompareTag("PlayerShip"))
         {
             PlayerShip player = collider.gameObject.GetComponent<PlayerShip>();
-            //player.Die();
 
-            // If invader collides with player, then automatic game over
-            GameObject obj = GameObject.Find("GlobalObject");
-            Global g = obj.GetComponent<Global>();
-            //if (g.lives > 0) g.lives--;
-            //g.GameOver();
+            if (state == 1)
+            {
+                player.Die();
+
+                // If invader collides with player, then automatic game over
+                GameObject obj = GameObject.Find("GlobalObject");
+                Global g = obj.GetComponent<Global>();
+                if (g.lives > 0) g.lives--;
+                g.GameOver();
+            }
         }
         else if (collider.CompareTag("Wall"))
         {
@@ -74,6 +81,7 @@ public class Invader : MonoBehaviour
     {
         state = 0;
         transform.parent = null;
+        gameObject.layer = LayerMask.NameToLayer("DeadObjects");
 
         // Instantiate particle effect
         Instantiate(deathExplosion, gameObject.transform.position, Quaternion.AngleAxis(-90, Vector3.right));

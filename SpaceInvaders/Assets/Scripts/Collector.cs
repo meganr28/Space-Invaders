@@ -18,24 +18,44 @@ public class Collector : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        GameObject globalObj = GameObject.Find("GlobalObject");
+        Global g = globalObj.GetComponent<Global>();
         Collider collider = collision.collider;
         if (collider.CompareTag("PlayerMissile"))
         {
             PlayerMissile playerMissile = collider.gameObject.GetComponent<PlayerMissile>();
             playerMissile.Die();
-            Global.missilesRemaining++;
+            if (!g.infiniteMissiles)
+            {
+                Global.missilesRemaining++;
+            }
         }
         else if (collider.CompareTag("EnemyMissile"))
         {
             EnemyMissile enemyMissile = collider.gameObject.GetComponent<EnemyMissile>();
             enemyMissile.Die();
-            Global.missilesRemaining++;
+            if (!g.infiniteMissiles)
+            {
+                Global.missilesRemaining++;
+            }
         }
         else if (collider.CompareTag("Invader"))
         {
             Invader invader = collider.gameObject.GetComponent<Invader>();
             invader.Destroy();
-            Global.missilesRemaining += 2;
+            if (!g.infiniteMissiles)
+            {
+                Global.missilesRemaining++;
+            }
+        }
+        else if (collider.CompareTag("MysteryShip"))
+        {
+            MysteryShip mysteryShip = collider.gameObject.GetComponent<MysteryShip>();
+            mysteryShip.Destroy();
+            if (!g.infiniteMissiles)
+            {
+                Global.missilesRemaining += 3;
+            }
         }
         else
         {

@@ -20,6 +20,15 @@ public class MissilesUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        missilesText.text = "M: " + Global.missilesRemaining.ToString();
+        missilesText.text = "M:" + Global.missilesRemaining.ToString();
+
+        if (globalObj.infiniteMissiles)
+        {
+            missilesText.color = Color.gray;
+        }
+        else
+        {
+            missilesText.color = Color.magenta;
+        }
     }
 }

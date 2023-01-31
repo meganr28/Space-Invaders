@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6639325909380334755}
   - component: {fileID: 6639325909380334776}
   - component: {fileID: -3658528588573938654}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MysteryShipPrefab
   m_TagString: MysteryShip
   m_Icon: {fileID: 0}
@@ -113,11 +113,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathKnell: {fileID: 8300000, guid: e93d5cbd4a12fe540a2b627c99c00b85, type: 3}
-  pointValue: 0
   shipSpeed: 0
   minX: 0
   maxX: 0
   state: 0
+  pointValues: 64000000320000003200000064000000960000006400000064000000320000002c01000064000000640000006400000032000000960000006400000032000000
 --- !u!54 &6639325909380334776
 Rigidbody:
   m_ObjectHideFlags: 0

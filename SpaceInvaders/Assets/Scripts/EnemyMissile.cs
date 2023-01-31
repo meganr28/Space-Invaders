@@ -19,7 +19,14 @@ public class EnemyMissile : MonoBehaviour
         maxX = 12f;
 
         // travel down in the z-axis 
-        thrust.z = -600.0f;
+        if (Global.timeWarpMode)
+        {
+            thrust.z = -200.0f;
+        }
+        else
+        {
+            thrust.z = -600.0f;
+        }
 
         // do not passively decelerate 
         GetComponent<Rigidbody>().drag = 0;

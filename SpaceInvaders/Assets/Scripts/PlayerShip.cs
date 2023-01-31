@@ -26,6 +26,8 @@ public class PlayerShip : MonoBehaviour
     {
         if (!Global.isGamePaused)
         {
+            GameObject globalObj = GameObject.Find("GlobalObject");
+            Global g = globalObj.GetComponent<Global>();
             Vector3 updatedPosition = gameObject.transform.position; // gameObject refers to object this is currently attached to
 
             // Only move if within boundaries
@@ -58,7 +60,7 @@ public class PlayerShip : MonoBehaviour
                 m.direction = rot;
 
                 numMissilesFired++;
-                if (Global.missilesRemaining > 0)
+                if (Global.missilesRemaining > 0 && !g.infiniteMissiles)
                 {
                     Global.missilesRemaining--;
                 }
