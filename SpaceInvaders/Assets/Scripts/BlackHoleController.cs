@@ -13,7 +13,7 @@ public class BlackHoleController : MonoBehaviour
         spawnPosition = new Vector3(-15.0f, 0.0f, -4.0f);
 
         // Spawn ships at certain intervals
-        if (!Global.isGamePaused && !Global.levelWon && Global.gridZ > 0.5f)
+        if (!Global.isGamePaused && !Global.levelWon)
         {
             InvokeRepeating("SpawnBlackHole", 5f, 10f);
         }
@@ -27,7 +27,7 @@ public class BlackHoleController : MonoBehaviour
 
     public void SpawnBlackHole()
     {
-        if (Global.gridZ > 0.5)
+        if (Global.gridZ > 0.5f)
         {
             // instantiate Black Hole
             GameObject obj = Instantiate(blackHole, spawnPosition, Quaternion.identity) as GameObject;

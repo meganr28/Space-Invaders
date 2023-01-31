@@ -105,6 +105,7 @@ public class Global : MonoBehaviour
         {
             yield return null;
         }
+        ResetStaticVariables();
         levelWon = false;
         resetGrid = true;
 
@@ -218,6 +219,8 @@ public class Global : MonoBehaviour
         isGamePaused = false;
         invadersRemaining = 55;
         missilesRemaining = 20;
+        timeWarpsGranted = 0;
+        gridZ = 3 - (level - 1);
     }
 
     public void FireInfinite()

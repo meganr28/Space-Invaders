@@ -95,6 +95,7 @@ public class InvadersGrid : MonoBehaviour
         GameObject globalObj = GameObject.Find("GlobalObject");
         Global g = globalObj.GetComponent<Global>();
         center = new Vector3(0, 0, 3) - (g.level - 1) * Vector3.forward;
+        Debug.Log("Grid Center: " + center);
 
         // How far the grid extends in either direction
         int extentX = (this.columns - 1) / 2;
