@@ -70,6 +70,7 @@ public class Global : MonoBehaviour
             if (timeWarpsGranted > 0)
             {
                 timeWarpsGranted--;
+                SetPostProcess();
                 StartCoroutine(TimeWarp(10.0f));
             }
         }
@@ -152,6 +153,15 @@ public class Global : MonoBehaviour
         }
         // Stop time warp and restore everything to normal speed
         timeWarpMode = false;
+        SetPostProcess();
+    }
+
+    public void SetPostProcess()
+    {
+        TimeWarpPostProcess timeWarpTop = topCamera.GetComponent<TimeWarpPostProcess>();
+        TimeWarpPostProcess timeWarpFront = frontCamera.GetComponent<TimeWarpPostProcess>();
+        timeWarpTop.enabled = !timeWarpTop.enabled;
+        timeWarpFront.enabled = !timeWarpFront.enabled;
     }
 
     public IEnumerator PauseGameLife(float pauseDuration)
