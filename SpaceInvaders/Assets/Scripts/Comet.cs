@@ -30,9 +30,11 @@ public class Comet : MonoBehaviour
         lastSpawnPosition = gameObject.transform.position;
 
         flyingSound = GetComponent<AudioSource>();
+        flyingSound.Play();
         cometSpeed = 8.0f;
 
-        flyingSound.Play();
+        // Make sure player's stars collected resets
+        PlayerShip.numStarsCollected = 0;
     }
 
     // Update is called once per frame

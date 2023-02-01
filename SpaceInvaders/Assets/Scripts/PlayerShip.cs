@@ -6,13 +6,13 @@ using UnityEngine.Rendering.PostProcessing;
 public class PlayerShip : MonoBehaviour
 {
     public static int numMissilesFired = 0;
+    public static int numStarsCollected = 0;
 
     public AudioClip deathKnell;
     public GameObject deathExplosion;
     public GameObject missile;
     public float playerSpeed;
     public float minX, maxX;
-    public int numStarsCollected;
 
     public PostProcessVolume postProcessVolume;
     public Bloom bloom;
@@ -81,10 +81,14 @@ public class PlayerShip : MonoBehaviour
             // Handle health "glow" if you collect stardust
             if (numStarsCollected == 3)
             {
+                Debug.Log("ENABLING BLOOM");
                 renderer.material.EnableKeyword("_EMISSION");
                 renderer.material.SetColor("_EmissionColor", Color.yellow);
                 //bloom.enabled.value = true;
                 //bloom.intensity.value = 4.0f * numStarsCollected;
+
+                // Let player fire unlimited number of missiles
+                g.FireInfinite();
             }
             else
             {
@@ -108,6 +112,9 @@ public class PlayerShip : MonoBehaviour
 
     public void Die()
     {
+        // Save last position
+        Global.respawnPosition = gameObject.transform.position;
+
         // Instantiate particle effect
         Instantiate(deathExplosion, gameObject.transform.position, Quaternion.AngleAxis(-90, Vector3.right));
 

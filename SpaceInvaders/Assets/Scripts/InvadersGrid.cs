@@ -85,7 +85,7 @@ public class InvadersGrid : MonoBehaviour
         }
         else
         {
-            invaderSpeed = 0.25f;
+            invaderSpeed = 0.35f;
         }
     }
 

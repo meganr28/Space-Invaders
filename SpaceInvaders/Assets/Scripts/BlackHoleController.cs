@@ -15,7 +15,7 @@ public class BlackHoleController : MonoBehaviour
         // Spawn ships at certain intervals
         if (!Global.isGamePaused && !Global.levelWon)
         {
-            InvokeRepeating("SpawnBlackHole", 5f, 10f);
+            InvokeRepeating("SpawnBlackHole", 10f, 25f);
         }
     }
 

@@ -22,7 +22,7 @@ public class Stardust : MonoBehaviour
         }
 
         // do not passively decelerate 
-        GetComponent<Rigidbody>().drag = 0;
+        GetComponent<Rigidbody>().drag = 0.5f;
 
         // set the direction it will travel in 
         GetComponent<Rigidbody>().MoveRotation(direction);
@@ -43,12 +43,23 @@ public class Stardust : MonoBehaviour
         Collider collider = collision.collider;
         if (collider.CompareTag("PlayerShip"))
         {
-            PlayerShip player = collider.gameObject.GetComponent<PlayerShip>();
+            // Play explosion clip
+            AudioSource.PlayClipAtPoint(deathKnell, Camera.allCameras[0].transform.position);
+
             Die();
         }
         else if (collider.CompareTag("Wall"))
         {
             Die();
+        }
+        else if (collider.CompareTag("Invader"))
+        {
+            //Invader invader = collider.gameObject.GetComponent<Invader>();
+
+            //if (invader.state == 0)
+            //{
+            //    Die();
+            //}
         }
         else
         {
@@ -60,9 +71,6 @@ public class Stardust : MonoBehaviour
 
     public void Die()
     {
-        // Play explosion clip
-        AudioSource.PlayClipAtPoint(deathKnell, Camera.allCameras[0].transform.position);
-
         Destroy(gameObject);
     }
 }
